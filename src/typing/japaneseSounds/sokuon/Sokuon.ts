@@ -21,7 +21,7 @@ export class Sokuon {
     }
 
     throw new Error(
-      `Sokuon fromHiragana: target character is not Sokuon. character: ${hiragana}`
+      `Sokuon fromHiragana: target hiragana is not Sokuon. hiragana: ${hiragana}`
     );
   }
 }

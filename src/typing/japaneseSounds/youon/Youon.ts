@@ -56,7 +56,7 @@ export class Youon {
   static fromHiragana(hiragana: string) {
     if (hiragana.length !== 2) {
       throw new Error(
-        `Youon fromHiragana: character count is not correct. character: ${hiragana}`
+        `Youon fromHiragana: hiragana count is not correct. hiragana: ${hiragana}`
       );
     }
 
@@ -65,7 +65,7 @@ export class Youon {
     }
 
     throw new Error(
-      `Youon fromHiragana: target character is not Youon. character: ${hiragana}`
+      `Youon fromHiragana: target hiragana is not Youon. hiragana: ${hiragana}`
     );
   }
 }

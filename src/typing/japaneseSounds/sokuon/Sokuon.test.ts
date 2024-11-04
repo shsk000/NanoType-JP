@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Sokuon } from "./sokuon";
+import { Sokuon } from "./Sokuon";
 
 describe("sokuon.test.ts", () => {
   test("fromHiragana: 「っ」を入力するとSokuonクラスが返却される", () => {

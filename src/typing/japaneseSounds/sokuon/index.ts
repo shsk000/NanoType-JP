@@ -1,1 +1,1 @@
-export * from "./sokuon";
+export * from "./Sokuon";

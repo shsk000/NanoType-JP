@@ -9,11 +9,19 @@ export class Other {
     return this.hiragana;
   }
 
-  static fromHiragana(hiragana: string) {
+  static isOther(hiragana: string): boolean {
     const isYouon = Youon.isYouon(hiragana);
     const isSokuon = Sokuon.isSokuon(hiragana);
 
     if (!isYouon && !isSokuon) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static fromHiragana(hiragana: string) {
+    if (Other.isOther(hiragana)) {
       return new this(hiragana);
     }
 

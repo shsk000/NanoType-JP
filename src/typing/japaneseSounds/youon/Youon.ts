@@ -1,10 +1,28 @@
 // 拗音
-
+// このプログラムでは「大きい文字」、「小さい文字」どちらも合わせて一つの拗音とする
 export class Youon {
   constructor(private hiragana: string) {}
 
   public getHiragana(): string {
     return this.hiragana;
+  }
+
+  // 小さい文字の判定
+  static isSutegana(hiragana: any): boolean {
+    if (
+      hiragana === "ゃ" ||
+      hiragana === "ゅ" ||
+      hiragana === "ょ" ||
+      hiragana === "ぁ" ||
+      hiragana === "ぃ" ||
+      hiragana === "ぅ" ||
+      hiragana === "ぇ" ||
+      hiragana === "ぉ"
+    ) {
+      return true;
+    }
+
+    return false;
   }
 
   static isYouon(hiragana: string): boolean {

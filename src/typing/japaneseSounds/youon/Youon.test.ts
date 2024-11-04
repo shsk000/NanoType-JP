@@ -3,7 +3,7 @@ import { Youon } from "./Youon";
 
 describe("Youon.test.ts", () => {
   test.each([["あ"], ["きゃあ"], ["きぁ"], ["ゔぅ"]])(
-    "fromHiragana: %s. エラー",
+    "fromHiragana: %s. 異常系",
     (hiragana) => {
       expect(() => {
         Youon.fromHiragana(hiragana);
@@ -100,5 +100,18 @@ describe("Youon.test.ts", () => {
     const youon = Youon.fromHiragana(hiragana);
     expect(youon).instanceOf(Youon);
     expect(youon.getHiragana()).toBe(hiragana);
+  });
+
+  test.each([["ゃ"], ["ゅ"], ["ょ"], ["ぁ"], ["ぃ"], ["ぅ"], ["ぇ"], ["ぉ"]])(
+    "isSutegana: %s. 捨て仮名判定、正常系",
+    (hiragana) => {
+      const isSutegana = Youon.isSutegana(hiragana);
+      expect(isSutegana).toBeTruthy();
+    }
+  );
+
+  test.each([["っ"]])("isSutegana: %s. 捨て仮名判定、異常系", (hiragana) => {
+    const isSutegana = Youon.isSutegana(hiragana);
+    expect(isSutegana).toBeFalsy();
   });
 });

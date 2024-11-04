@@ -7,12 +7,7 @@ export class Youon {
     return this.hiragana;
   }
 
-  static fromHiragana(hiragana: string) {
-    if (hiragana.length !== 2) {
-      throw new Error(
-        `Youon fromHiragana: character count is not correct. character: ${hiragana}`
-      );
-    }
+  static isYouon(hiragana: string): boolean {
     const [first, second] = hiragana;
 
     if (
@@ -36,7 +31,8 @@ export class Youon {
         case "じ":
         case "ぢ":
         case "び":
-          return new this(hiragana);
+        case "ぴ":
+          return true;
       }
     }
 
@@ -50,8 +46,22 @@ export class Youon {
       second === "ぉ"
     ) {
       if (first === "ゔ") {
-        return new this(hiragana);
+        return true;
       }
+    }
+
+    return false;
+  }
+
+  static fromHiragana(hiragana: string) {
+    if (hiragana.length !== 2) {
+      throw new Error(
+        `Youon fromHiragana: character count is not correct. character: ${hiragana}`
+      );
+    }
+
+    if (Youon.isYouon(hiragana)) {
+      return new this(hiragana);
     }
 
     throw new Error(

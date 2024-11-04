@@ -7,8 +7,16 @@ export class Sokuon {
     return this.hiragana;
   }
 
-  static fromHiragana(hiragana: String) {
+  static isSokuon(hiragana: String): boolean {
     if (hiragana === "っ") {
+      return true;
+    }
+
+    return false;
+  }
+
+  static fromHiragana(hiragana: String) {
+    if (Sokuon.isSokuon(hiragana)) {
       return new this();
     }
 

@@ -26,7 +26,7 @@ export class Other {
     }
 
     throw new Error(
-      `Other fromHiragana: target hiragana is Youon or Sokuon. isYouon: ${isYouon}, isSokuon: ${isSokuon}`
+      `Other fromHiragana: target hiragana is Youon or Sokuon. hiragana: ${hiragana}`
     );
   }
 }

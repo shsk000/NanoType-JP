@@ -7,7 +7,10 @@ export class Youon {
     return this.hiragana;
   }
 
-  // 小さい文字の判定
+  /**
+   * 小さい文字の判定
+   * NOTE:「っ」は促音として判定したいため、捨て仮名の判定には含んでいない
+   */
   static isSutegana(hiragana: any): boolean {
     if (
       hiragana === "ゃ" ||

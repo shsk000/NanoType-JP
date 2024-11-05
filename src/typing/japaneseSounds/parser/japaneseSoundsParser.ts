@@ -17,10 +17,16 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
     }
 
     if (Youon.isSutegana(nextTargetHiragana)) {
-      result.push(Youon.fromHiragana(targetHiragana + nextTargetHiragana));
-      // 二文字使って拗音クラスを作成しているため、ループ回数を手動で回す
-      i++;
-      continue;
+      try {
+        result.push(Youon.fromHiragana(targetHiragana + nextTargetHiragana));
+        // 二文字使って拗音クラスを作成しているため、ループ回数を手動で回す
+        i++;
+        continue;
+      } catch (e) {
+        // エラーになる場合は１文字ずつOtherクラスを作成する
+        // 「あぁ」など拗音タイピングのフォーマットとしてはないが、日本語として存在するパターンがある
+        console.error(e);
+      }
     }
 
     const isOher = Other.isOther(targetHiragana);

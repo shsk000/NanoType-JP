@@ -1,5 +1,6 @@
-// 促音
-
+/**
+ * 促音
+ */
 export class Sokuon {
   private hiragana: string = "っ";
 
@@ -15,12 +16,12 @@ export class Sokuon {
     return false;
   }
 
-  static fromHiragana(hiragana: String) {
+  static fromHiragana(hiragana: String): Sokuon | undefined {
     if (Sokuon.isSokuon(hiragana)) {
       return new this();
     }
 
-    throw new Error(
+    console.debug(
       `Sokuon fromHiragana: target hiragana is not Sokuon. hiragana: ${hiragana}`
     );
   }

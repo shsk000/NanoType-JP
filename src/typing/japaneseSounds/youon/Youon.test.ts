@@ -5,9 +5,7 @@ describe("Youon.test.ts", () => {
   test.each([["あ"], ["きゃあ"], ["きぁ"], ["ゔぅ"]])(
     "fromHiragana: %s. 異常系",
     (hiragana) => {
-      expect(() => {
-        Youon.fromHiragana(hiragana);
-      }).toThrowError();
+      expect(Youon.fromHiragana(hiragana)).toBeFalsy();
     }
   );
 
@@ -85,7 +83,7 @@ describe("Youon.test.ts", () => {
   ])("fromHiragana: %s. 正常系", (hiragana) => {
     const youon = Youon.fromHiragana(hiragana);
     expect(youon).instanceOf(Youon);
-    expect(youon.getHiragana()).toBe(hiragana);
+    expect((youon as Youon).getHiragana()).toBe(hiragana);
   });
 
   test.each([
@@ -99,7 +97,7 @@ describe("Youon.test.ts", () => {
   ])("fromHiragana: %s. 「ゔ」の拗音、正常系", (hiragana) => {
     const youon = Youon.fromHiragana(hiragana);
     expect(youon).instanceOf(Youon);
-    expect(youon.getHiragana()).toBe(hiragana);
+    expect((youon as Youon).getHiragana()).toBe(hiragana);
   });
 
   test.each([["ゃ"], ["ゅ"], ["ょ"], ["ぁ"], ["ぃ"], ["ぅ"], ["ぇ"], ["ぉ"]])(

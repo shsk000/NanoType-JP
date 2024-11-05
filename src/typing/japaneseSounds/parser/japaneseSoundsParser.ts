@@ -11,28 +11,32 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       | string
       | undefined;
 
-    const isSokuon = Sokuon.isSokuon(targetHiragana);
-    if (isSokuon) {
-      result.push(Sokuon.fromHiragana(targetHiragana));
+    const sokuon = Sokuon.fromHiragana(targetHiragana);
+    if (sokuon) {
+      result.push(sokuon);
+      continue;
     }
 
     if (Youon.isSutegana(nextTargetHiragana)) {
-      try {
-        result.push(Youon.fromHiragana(targetHiragana + nextTargetHiragana));
+      const youon = Youon.fromHiragana(targetHiragana + nextTargetHiragana);
+      if (youon) {
+        result.push(youon);
         // 二文字使って拗音クラスを作成しているため、ループ回数を手動で回す
         i++;
         continue;
-      } catch (e) {
-        // エラーになる場合は１文字ずつOtherクラスを作成する
-        // 「あぁ」など拗音タイピングのフォーマットとしてはないが、日本語として存在するパターンがある
-        console.error(e);
       }
+      // 「あぁ」など拗音タイピングのフォーマットとしてはないが、日本語として存在するパターンがある
+      // その場合１文字ずつOtherクラスを作成する
     }
 
-    const isOher = Other.isOther(targetHiragana);
-    if (isOher) {
-      result.push(Other.fromHiragana(targetHiragana));
+    const other = Other.fromHiragana(targetHiragana);
+    if (other) {
+      result.push(other);
+      continue;
     }
+    console.error(
+      `japaneseSoundsParser: Could not parsed. hiragna: ${targetHiragana}`
+    );
   }
 
   return result;

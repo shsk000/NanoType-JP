@@ -1,5 +1,7 @@
-// 拗音
-// このプログラムでは「大きい文字」、「小さい文字」どちらも合わせて一つの拗音とする
+/**
+ * 拗音
+ * このプログラムでは「大きい文字」、「小さい文字」どちらも合わせて一つの拗音とする
+ */
 export class Youon {
   constructor(private hiragana: string) {}
 
@@ -74,18 +76,19 @@ export class Youon {
     return false;
   }
 
-  static fromHiragana(hiragana: string) {
+  static fromHiragana(hiragana: string): Youon | undefined {
     if (hiragana.length !== 2) {
-      throw new Error(
+      console.debug(
         `Youon fromHiragana: hiragana count is not correct. hiragana: ${hiragana}`
       );
+      return;
     }
 
     if (Youon.isYouon(hiragana)) {
       return new this(hiragana);
     }
 
-    throw new Error(
+    console.debug(
       `Youon fromHiragana: target hiragana is not Youon. hiragana: ${hiragana}`
     );
   }

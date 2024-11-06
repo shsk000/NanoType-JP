@@ -20,12 +20,12 @@ export class Other {
     return false;
   }
 
-  static fromHiragana(hiragana: string) {
+  static fromHiragana(hiragana: string): Other | undefined {
     if (Other.isOther(hiragana)) {
       return new this(hiragana);
     }
 
-    throw new Error(
+    console.debug(
       `Other fromHiragana: target hiragana is Youon or Sokuon. hiragana: ${hiragana}`
     );
   }

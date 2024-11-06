@@ -1,24 +1,27 @@
 import { Other } from "../japaneseSounds/other";
 import { JapaneseSound } from "../japaneseSounds/type";
 import { otherConvertList } from "./convert";
-import { HiraganaRomajiItem } from "./type";
+import { RomajiPattern } from "./type";
 
 export class Romaji {
-  private hiragana: string;
-  private romajiItem: HiraganaRomajiItem;
+  private romajiPattern: RomajiPattern;
 
   constructor(private sound: JapaneseSound) {
-    this.hiragana = sound.getHiragana();
-    this.romajiItem = this.decisionRomajiItem(this.sound);
+    this.romajiPattern = this.decisionRomajiPattern();
   }
 
-  public getRomajiItem(): HiraganaRomajiItem {
-    return this.romajiItem;
+  public getRomajiPattern(): RomajiPattern {
+    return this.romajiPattern;
   }
 
-  private decisionRomajiItem(sound: JapaneseSound): HiraganaRomajiItem {
-    if (sound instanceof Other) {
-      const item = otherConvertList[this.hiragana];
+  private decisionRomajiPattern(): RomajiPattern {
+    if (this.sound instanceof Other) {
+      const item = otherConvertList[this.sound.getHiragana()];
+      if (!item) {
+        throw new Error(
+          "Romaji decisionRomajiPattern: 対象ひらがなに対応するローマ字が見つかりません"
+        );
+      }
       return item;
     }
 

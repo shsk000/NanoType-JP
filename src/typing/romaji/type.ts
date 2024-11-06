@@ -1,4 +1,4 @@
-export type HiraganaRomajiItem = {
+export type RomajiPattern = {
   /**
    * 一般的なローマ字
    */
@@ -9,4 +9,4 @@ export type HiraganaRomajiItem = {
   sub?: string[];
 };
 
-export type HiraganaRomajiMap = Record<string, HiraganaRomajiItem>;
+export type RomajiConvertList = Record<string, RomajiPattern>;

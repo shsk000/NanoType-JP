@@ -1,20 +1,6 @@
-// ぁ: ["la", "xa"],
-// ぃ: ["li", "xi"],
-// ぅ: ["lu", "xu"],
-// ぇ: ["le", "xe"],
-// ぉ: ["lo", "xo"],
-// ゃ: ["lya", "xya"],
-// ゅ: ["lyu", "xyu"],
-// ょ: ["lyo", "xyo"],
-// ゎ: ["lwa", "xwu"],
-// っ: ["ltu", "xtu"],
-// ゐ: ["i", "wyi"],
-// ゑ: ["e", "wye"],
-// ヴ: ["vu"],
+import { RomajiConvertList } from "./type";
 
-import { HiraganaRomajiMap } from "./type";
-
-export const otherConvertList: HiraganaRomajiMap = {
+export const otherConvertList: RomajiConvertList = {
   あ: {
     main: "a",
   },
@@ -237,5 +223,56 @@ export const otherConvertList: HiraganaRomajiMap = {
   },
   ぽ: {
     main: "po",
+  },
+  ぁ: {
+    main: "la",
+    sub: ["xa"],
+  },
+  ぃ: {
+    main: "li",
+    sub: ["xi"],
+  },
+  ぅ: {
+    main: "lu",
+    sub: ["xu"],
+  },
+  ぇ: {
+    main: "le",
+    sub: ["xe"],
+  },
+  ぉ: {
+    main: "lo",
+    sub: ["xo"],
+  },
+  ゃ: {
+    main: "lya",
+    sub: ["xya"],
+  },
+  ゅ: {
+    main: "lyu",
+    sub: ["xyu"],
+  },
+  ょ: {
+    main: "lyo",
+    sub: ["xyo"],
+  },
+  ゎ: {
+    main: "lwa",
+    sub: ["xwu"],
+  },
+  っ: {
+    main: "ltu",
+    sub: ["xtu"],
+  },
+  ゐ: {
+    main: "i",
+    sub: ["wyi"],
+  },
+  ゑ: {
+    main: "e",
+    sub: ["wye"],
+  },
+  ヴ: {
+    main: "vu",
   },
 };

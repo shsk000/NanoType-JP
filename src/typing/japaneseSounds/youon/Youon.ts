@@ -9,6 +9,14 @@ export class Youon {
     return this.hiragana;
   }
 
+  public getFirstCharacterHiragana(): string {
+    return this.hiragana[0];
+  }
+
+  public getSecondCharacterHiranaga(): string {
+    return this.hiragana[1];
+  }
+
   /**
    * 小さい文字の判定
    * NOTE:「っ」は促音として判定したいため、捨て仮名の判定には含んでいない

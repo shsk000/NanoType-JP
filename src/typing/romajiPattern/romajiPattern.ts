@@ -81,7 +81,7 @@ export class RomajiPattern {
   static concatFieldCombinations(one: RomajiPattern, two: RomajiPattern) {
     const oneMainAlphabet = one.getMain().getAlphabet();
     const twoMainAlphabet = two.getMain().getAlphabet();
-    // main同士の結合を最終RomajiPatternのmainとする
+    // main同士の結合を新規RomajiPatternのmainとする
     const main = new RomajiPatternUnit(oneMainAlphabet + twoMainAlphabet);
 
     // oneのmainを起点にtwoと総当たりしたデータ

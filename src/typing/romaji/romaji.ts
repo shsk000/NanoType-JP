@@ -56,7 +56,7 @@ export class Romaji {
       }
 
       throw new Error(
-        "Romaji decisionRomajiPattern: 想定されるinputではありません"
+        "Romaji decisionRomajiPattern: 想定される入力ではありません"
       );
     }
 

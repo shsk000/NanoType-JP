@@ -2,9 +2,10 @@ import { Other } from "../japaneseSounds/other";
 import { Sokuon } from "../japaneseSounds/sokuon";
 import { JapaneseSound } from "../japaneseSounds/type";
 import { Youon } from "../japaneseSounds/youon";
-import { otherConvertList } from "./otherConvertList";
-import { sokuonConvertList } from "./sokuonConvertList";
-import { RomajiPattern } from "./type";
+import { getConvertUnit } from "../romajiPattern/getConvertUnit";
+import { otherConvertList } from "../romajiPattern/otherConvertList";
+import { RomajiPattern } from "../romajiPattern/romajiPattern";
+import { sokuonConvertList } from "../romajiPattern/sokuonConvertList";
 import { youonConvertList } from "./youonConvertList";
 
 // １入力のパターン情報
@@ -28,60 +29,41 @@ export class Romaji {
     return this.romajiPattern;
   }
 
-  private getOtherRomajiPattern(otherHiragana: string): RomajiPattern {
-    const item = otherConvertList[otherHiragana];
-    if (!item) {
-      throw new Error(
-        "Romaji getOtherRomajiPattern: 対象ひらがなに対応するローマ字が見つかりません"
-      );
-    }
-    return item;
-  }
+  //   private getOtherRomajiPattern(otherHiragana: string): RomajiPattern {
+  //     const item = otherConvertList[otherHiragana];
+  //     if (!item) {
+  //       throw new Error(
+  //         "Romaji getOtherRomajiPattern: 対象ひらがなに対応するローマ字が見つかりません"
+  //       );
+  //     }
+  //     return item;
+  //   }
 
-  private getYouonRomajiPattern(youonHiragana: string): RomajiPattern {
-    const item = youonConvertList[youonHiragana];
-    if (!item) {
-      throw new Error(
-        "Romaji getYouonRomajiPattern: 対象ひらがなに対応するローマ字が見つかりません"
-      );
-    }
-    return item;
-  }
+  //   private getYouonRomajiPattern(youonHiragana: string): RomajiPattern {
+  //     const item = youonConvertList[youonHiragana];
+  //     if (!item) {
+  //       throw new Error(
+  //         "Romaji getYouonRomajiPattern: 対象ひらがなに対応するローマ字が見つかりません"
+  //       );
+  //     }
+  //     return item;
+  //   }
 
-  private getSokuonRomajiPattern() {
-    return sokuonConvertList["っ"];
-  }
+  //   private getSokuonRomajiPattern() {
+  //     return sokuonConvertList["っ"];
+  //   }
 
   private decisionRomajiPattern(input: InputUnit): RomajiPattern {
-    if (input instanceof Other) {
-      return this.getOtherRomajiPattern(input.getHiragana());
-    }
-
-    if (input instanceof Youon) {
-      return this.getYouonRomajiPattern(input.getHiragana());
+    if (input instanceof Other || input instanceof Youon) {
+      return getConvertUnit(input);
     }
 
     if (input instanceof Array) {
-      const firstSound = input[0];
       const secondSound = input[1];
 
       if (secondSound instanceof Other) {
-        const sokuonRomajiPattern = this.getSokuonRomajiPattern();
-        const otherHiragana = secondSound.getHiragana();
-        const otherRomajiPattern = this.getOtherRomajiPattern(otherHiragana);
-
-        console.log(sokuonRomajiPattern);
-        return {
-          // 二文字目を二回入力するタイプパターン（例：った: tta）
-          main: otherRomajiPattern.main[0] + otherRomajiPattern.main,
-          sub: [
-            sokuonRomajiPattern.main + otherRomajiPattern.main,
-            sokuonRomajiPattern.sub[0] + otherRomajiPattern.main,
-          ],
-        };
-      }
-
-      if (secondSound instanceof Youon) {
+        const otherRomajiPattern = getConvertUnit(secondSound);
+        return RomajiPattern.createSokuonPattern(otherRomajiPattern);
       }
 
       throw new Error(
@@ -89,6 +71,8 @@ export class Romaji {
       );
     }
 
-    return otherConvertList["あ"];
+    // return otherConvertList["あ"];
+
+    throw new Error("test");
   }
 }

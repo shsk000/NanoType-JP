@@ -7,7 +7,7 @@ export class RomajiPatternUnit {
 
   /**
    * 促音、先頭文字二回入力用のunit作成
-   * った => tta
+   * た（ta） => った（tta）
    */
   static createSokuonDoubleInputUnit(patternUnit: RomajiPatternUnit) {
     const alphabet = patternUnit.getAlphabet();

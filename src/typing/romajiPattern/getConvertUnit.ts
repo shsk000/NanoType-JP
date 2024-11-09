@@ -1,11 +1,10 @@
-import { Other } from "../japaneseSounds/other";
-import { Sokuon } from "../japaneseSounds/sokuon";
-import { JapaneseSound } from "../japaneseSounds/type";
-import { Youon } from "../japaneseSounds/youon";
-import { otherConvertList } from "./otherConvertList";
-import { RomajiPattern } from "./romajiPattern";
-import { sokuonConvertList } from "./sokuonConvertList";
-import { youonConvertList } from "./youonConvertList";
+import { Other, Sokuon, Youon, JapaneseSound } from "../japaneseSounds";
+import {
+  otherConvertList,
+  sokuonConvertList,
+  youonConvertList,
+  RomajiPattern,
+} from "./";
 
 /**
  * 拗音、促音、その他のデータからタイピング情報を取得する

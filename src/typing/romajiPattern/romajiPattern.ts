@@ -38,11 +38,15 @@ export class RomajiPattern {
   /**
    * main, sub関係なく一つの配列にまとめて返却する
    */
-  public getFlatRomajiPatternUnit(): RomajiPatternUnit[] {
+  public getFlatRomajiPatternUnits(): RomajiPatternUnit[] {
     return [this.getMain(), ...this.getSub()];
   }
 
-  static createSokuonPattern(romajiPattern: RomajiPattern) {
+  /**
+   * 指定のRomajiPatternから「っか」（kka）など
+   * 先頭文字を二回入力して促音とその他を同時入力するパターンを作成する
+   */
+  static createSimultaneouslySokuonInputPattern(romajiPattern: RomajiPattern) {
     const main = RomajiPatternUnit.createSokuonDoubleInputUnit(
       romajiPattern.getMain()
     );
@@ -55,6 +59,19 @@ export class RomajiPattern {
     }
 
     return new RomajiPattern(main, subs);
+  }
+
+  /**
+   * ２つのPattern情報をあわせる
+   * oneのmainを新規RomajiPatternのmainにして
+   * それ以外のone.sub, two.main, two.subは新規RomajiPatternのsubとしてまとめる
+   */
+  static concat(one: RomajiPattern, two: RomajiPattern): RomajiPattern {
+    return new RomajiPattern(one.getMain(), [
+      ...one.getSub(),
+      two.getMain(),
+      ...two.getSub(),
+    ]);
   }
 
   /**
@@ -76,7 +93,7 @@ export class RomajiPattern {
     const oneSubConbinations = one
       .getSub()
       .map((oneUnit) => {
-        return two.getFlatRomajiPatternUnit().map((twoUnit) => {
+        return two.getFlatRomajiPatternUnits().map((twoUnit) => {
           return new RomajiPatternUnit(
             oneUnit.getAlphabet() + twoUnit.getAlphabet()
           );

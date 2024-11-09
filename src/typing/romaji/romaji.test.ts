@@ -245,14 +245,5 @@ describe("romaji.test.ts", () => {
         expect(romaji.getRomajiPattern()).toStrictEqual(expected);
       }
     );
-
-    // test("test2", () => {
-    //   const sokuon = Sokuon.fromHiragana("っ") as Sokuon;
-    //   const youon = Youon.fromHiragana("じゃ") as Youon;
-
-    //   const romaji = new Romaji([sokuon, youon]);
-    //   console.log(romaji);
-    //   console.log(romaji.getRomajiPattern().getSub());
-    // });
   });
 });

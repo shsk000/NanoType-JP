@@ -2,7 +2,8 @@ import { Other } from "../japaneseSounds/other";
 import { Sokuon } from "../japaneseSounds/sokuon";
 import { JapaneseSound } from "../japaneseSounds/type";
 import { Youon } from "../japaneseSounds/youon";
-import { otherConvertList } from "./convert";
+import { otherConvertList } from "./otherConvertList";
+import { sokuonConvertList } from "./sokuonConvertList";
 import { RomajiPattern } from "./type";
 import { youonConvertList } from "./youonConvertList";
 
@@ -47,6 +48,10 @@ export class Romaji {
     return item;
   }
 
+  private getSokuonRomajiPattern() {
+    return sokuonConvertList["っ"];
+  }
+
   private decisionRomajiPattern(input: InputUnit): RomajiPattern {
     if (input instanceof Other) {
       return this.getOtherRomajiPattern(input.getHiragana());
@@ -61,12 +66,18 @@ export class Romaji {
       const secondSound = input[1];
 
       if (secondSound instanceof Other) {
+        const sokuonRomajiPattern = this.getSokuonRomajiPattern();
         const otherHiragana = secondSound.getHiragana();
-        const romajiPattern = this.getOtherRomajiPattern(otherHiragana);
+        const otherRomajiPattern = this.getOtherRomajiPattern(otherHiragana);
+
+        console.log(sokuonRomajiPattern);
         return {
           // 二文字目を二回入力するタイプパターン（例：った: tta）
-          main: romajiPattern.main[0] + romajiPattern.main,
-          //   sub:
+          main: otherRomajiPattern.main[0] + otherRomajiPattern.main,
+          sub: [
+            sokuonRomajiPattern.main + otherRomajiPattern.main,
+            sokuonRomajiPattern.sub[0] + otherRomajiPattern.main,
+          ],
         };
       }
 

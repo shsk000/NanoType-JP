@@ -1,9 +1,5 @@
-import { Other } from "../japaneseSounds/other";
-import { Sokuon } from "../japaneseSounds/sokuon";
-import { JapaneseSound } from "../japaneseSounds/type";
-import { Youon } from "../japaneseSounds/youon";
-import { getConvertUnit } from "../romajiPattern/getConvertUnit";
-import { RomajiPattern } from "../romajiPattern/romajiPattern";
+import { Other, Sokuon, Youon, JapaneseSound } from "../japaneseSounds";
+import { getConvertUnit, RomajiPattern } from "../romajiPattern";
 
 // １入力のパターン情報
 // Sokuon, Other:「っか」（kka）などのパターン

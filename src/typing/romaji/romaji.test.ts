@@ -168,13 +168,32 @@ describe("romaji.test.ts", () => {
   });
 
   describe("Sokuon+OtherからRomajiへの変換", () => {
-    test.each([["っ", "た"]])(
+    test.each([
+      [
+        ["っ", "た"],
+        new RomajiPattern(new RomajiPatternUnit("tta"), [
+          new RomajiPatternUnit("ltuta"),
+          new RomajiPatternUnit("xtuta"),
+        ]),
+      ],
+      [
+        ["っ", "か"],
+        new RomajiPattern(new RomajiPatternUnit("kka"), [
+          new RomajiPatternUnit("cca"),
+          new RomajiPatternUnit("ltuka"),
+          new RomajiPatternUnit("ltuca"),
+          new RomajiPatternUnit("xtuka"),
+          new RomajiPatternUnit("xtuca"),
+        ]),
+      ],
+    ])(
       "%s. Sokuon+OtherからRomajiへ変換できる",
-      (sokuonHiragana, otherHiragana) => {
+      ([sokuonHiragana, otherHiragana], expected) => {
         const sokuon = Sokuon.fromHiragana(sokuonHiragana) as Sokuon;
         const other = Other.fromHiragana(otherHiragana) as Other;
 
         const romaji = new Romaji([sokuon, other]);
+        expect(romaji.getRomajiPattern()).toStrictEqual(expected);
       }
     );
   });

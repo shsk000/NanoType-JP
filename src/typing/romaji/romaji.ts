@@ -60,6 +60,8 @@ export class Romaji {
       );
     }
 
-    throw new Error("TODO: error handling");
+    throw new Error(
+      `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした. hiragana: ${input.getHiragana()}`
+    );
   }
 }

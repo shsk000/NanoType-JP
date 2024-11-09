@@ -26,7 +26,7 @@ export class Other {
     }
 
     console.debug(
-      `Other fromHiragana: target hiragana is Youon or Sokuon. hiragana: ${hiragana}`
+      `Other fromHiragana: 対象が促音または拗音です. hiragana: ${hiragana}`
     );
   }
 }

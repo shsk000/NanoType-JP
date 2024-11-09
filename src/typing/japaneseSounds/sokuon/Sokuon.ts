@@ -22,7 +22,7 @@ export class Sokuon {
     }
 
     console.debug(
-      `Sokuon fromHiragana: target hiragana is not Sokuon. hiragana: ${hiragana}`
+      `Sokuon fromHiragana: 対象が促音ではありません. hiragana: ${hiragana}`
     );
   }
 }

@@ -36,7 +36,7 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       continue;
     }
     console.error(
-      `japaneseSoundsParser: Could not parsed. hiragna: ${targetHiragana}`
+      `japaneseSoundsParser: パースできませんでした. hiragna: ${targetHiragana}`
     );
   }
 

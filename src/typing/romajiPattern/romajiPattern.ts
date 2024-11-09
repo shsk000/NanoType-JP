@@ -44,15 +44,20 @@ export class RomajiPattern {
 
   /**
    * 指定のRomajiPatternから「っか」（kka）など
-   * 先頭文字を二回入力して促音とその他を同時入力するパターンを作成する
+   * 先頭文字を二回入力して促音と拗音またはその他を同時入力するパターンを作成する
    */
   static createSimultaneouslySokuonInputPattern(romajiPattern: RomajiPattern) {
     const main = RomajiPatternUnit.createSokuonDoubleInputUnit(
       romajiPattern.getMain()
     );
-    const subs = romajiPattern.getSub().map((unit) => {
-      return RomajiPatternUnit.createSokuonDoubleInputUnit(unit);
-    });
+    const subs = romajiPattern
+      .getSub()
+      .map((unit) => {
+        // NOTE: xやlは１文字ずつ入力するパターンのため返却値から除外する
+        if (/[lx]/.test(unit.getAlphabet())) return undefined;
+        return RomajiPatternUnit.createSokuonDoubleInputUnit(unit);
+      })
+      .filter((unit) => !!unit);
 
     if (subs.length === 0) {
       return new RomajiPattern(main);

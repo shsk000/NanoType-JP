@@ -186,6 +186,16 @@ describe("romaji.test.ts", () => {
           new RomajiPatternUnit("xtuca"),
         ]),
       ],
+      [
+        ["っ", "か"],
+        new RomajiPattern(new RomajiPatternUnit("kka"), [
+          new RomajiPatternUnit("cca"),
+          new RomajiPatternUnit("ltuka"),
+          new RomajiPatternUnit("ltuca"),
+          new RomajiPatternUnit("xtuka"),
+          new RomajiPatternUnit("xtuca"),
+        ]),
+      ],
     ])(
       "%s. Sokuon+OtherからRomajiへ変換できる",
       ([sokuonHiragana, otherHiragana], expected) => {
@@ -196,5 +206,53 @@ describe("romaji.test.ts", () => {
         expect(romaji.getRomajiPattern()).toStrictEqual(expected);
       }
     );
+  });
+
+  describe("Sokuon+YouonからRomajiへの変換", () => {
+    test.each([
+      [
+        ["っ", "きゃ"],
+        new RomajiPattern(new RomajiPatternUnit("kkya"), [
+          new RomajiPatternUnit("ltukya"),
+          new RomajiPatternUnit("ltukilya"),
+          new RomajiPatternUnit("ltukixya"),
+          new RomajiPatternUnit("xtukya"),
+          new RomajiPatternUnit("xtukilya"),
+          new RomajiPatternUnit("xtukixya"),
+        ]),
+      ],
+      [
+        ["っ", "じゃ"],
+        new RomajiPattern(new RomajiPatternUnit("zzya"), [
+          new RomajiPatternUnit("jja"),
+          new RomajiPatternUnit("ltuzya"),
+          new RomajiPatternUnit("ltuja"),
+          new RomajiPatternUnit("ltujilya"),
+          new RomajiPatternUnit("ltujixya"),
+          new RomajiPatternUnit("xtuzya"),
+          new RomajiPatternUnit("xtuja"),
+          new RomajiPatternUnit("xtujilya"),
+          new RomajiPatternUnit("xtujixya"),
+        ]),
+      ],
+    ])(
+      "%s. Sokuon+YouonからRomajiへ変換できる",
+      ([sokuonHiragana, youonHiragana], expected) => {
+        const sokuon = Sokuon.fromHiragana(sokuonHiragana) as Sokuon;
+        const youon = Youon.fromHiragana(youonHiragana) as Youon;
+
+        const romaji = new Romaji([sokuon, youon]);
+        expect(romaji.getRomajiPattern()).toStrictEqual(expected);
+      }
+    );
+
+    // test("test2", () => {
+    //   const sokuon = Sokuon.fromHiragana("っ") as Sokuon;
+    //   const youon = Youon.fromHiragana("じゃ") as Youon;
+
+    //   const romaji = new Romaji([sokuon, youon]);
+    //   console.log(romaji);
+    //   console.log(romaji.getRomajiPattern().getSub());
+    // });
   });
 });

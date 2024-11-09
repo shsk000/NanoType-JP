@@ -25,6 +25,6 @@ export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
   }
 
   throw new Error(
-    `getConvertUnit: 想定外の引数が設定されています. hiragana: ${sound} `
+    `getConvertUnit: 想定外の引数が設定されています. hiragana: ${sound}`
   );
 };

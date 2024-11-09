@@ -9,6 +9,14 @@ export class Youon {
     return this.hiragana;
   }
 
+  public getFirstCharacterHiragana(): string {
+    return this.hiragana[0];
+  }
+
+  public getSecondCharacterHiranaga(): string {
+    return this.hiragana[1];
+  }
+
   /**
    * 小さい文字の判定
    * NOTE:「っ」は促音として判定したいため、捨て仮名の判定には含んでいない
@@ -79,7 +87,7 @@ export class Youon {
   static fromHiragana(hiragana: string): Youon | undefined {
     if (hiragana.length !== 2) {
       console.debug(
-        `Youon fromHiragana: hiragana count is not correct. hiragana: ${hiragana}`
+        `Youon fromHiragana: 文字数が不正です. hiragana: ${hiragana}`
       );
       return;
     }
@@ -89,7 +97,7 @@ export class Youon {
     }
 
     console.debug(
-      `Youon fromHiragana: target hiragana is not Youon. hiragana: ${hiragana}`
+      `Youon fromHiragana: 対象は拗音ではありません. hiragana: ${hiragana}`
     );
   }
 }

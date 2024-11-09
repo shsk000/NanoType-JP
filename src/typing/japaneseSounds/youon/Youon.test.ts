@@ -5,7 +5,7 @@ describe("Youon.test.ts", () => {
   test.each([["あ"], ["きゃあ"], ["きぁ"], ["ゔぅ"]])(
     "fromHiragana: %s. 異常系",
     (hiragana) => {
-      expect(Youon.fromHiragana(hiragana)).toBeFalsy();
+      expect(Youon.fromHiragana(hiragana)).toBeUndefined();
     }
   );
 

@@ -1,9 +1,10 @@
 import { Other } from "../other";
 import { Sokuon } from "../sokuon";
+import { JapaneseSound } from "../type";
 import { Youon } from "../youon";
 
 export const japaneseSoundsParser = (hiraganaSentence: string) => {
-  const result: (Other | Sokuon | Youon)[] = [];
+  const result: JapaneseSound[] = [];
 
   for (let i = 0; i < hiraganaSentence.length; i++) {
     const targetHiragana = hiraganaSentence[i];
@@ -35,7 +36,7 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       continue;
     }
     console.error(
-      `japaneseSoundsParser: Could not parsed. hiragna: ${targetHiragana}`
+      `japaneseSoundsParser: パースできませんでした. hiragna: ${targetHiragana}`
     );
   }
 

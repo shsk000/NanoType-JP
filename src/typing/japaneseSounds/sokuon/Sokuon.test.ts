@@ -6,8 +6,8 @@ describe("sokuon.test.ts", () => {
     expect(Sokuon.fromHiragana("っ")).instanceOf(Sokuon);
   });
   test("fromHiragana: 「っ」以外はundefinedを返却する", () => {
-    expect(Sokuon.fromHiragana("test")).toBeFalsy();
-    expect(Sokuon.fromHiragana("あ")).toBeFalsy();
-    expect(Sokuon.fromHiragana("ゃ")).toBeFalsy();
+    expect(Sokuon.fromHiragana("test")).toBeUndefined();
+    expect(Sokuon.fromHiragana("あ")).toBeUndefined();
+    expect(Sokuon.fromHiragana("ゃ")).toBeUndefined();
   });
 });

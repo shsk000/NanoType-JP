@@ -4,11 +4,11 @@
 export class Sokuon {
   private hiragana: string = "っ";
 
-  public getHiragana(): String {
+  public getHiragana(): string {
     return this.hiragana;
   }
 
-  static isSokuon(hiragana: String): boolean {
+  static isSokuon(hiragana: string): boolean {
     if (hiragana === "っ") {
       return true;
     }
@@ -16,13 +16,13 @@ export class Sokuon {
     return false;
   }
 
-  static fromHiragana(hiragana: String): Sokuon | undefined {
+  static fromHiragana(hiragana: string): Sokuon | undefined {
     if (Sokuon.isSokuon(hiragana)) {
       return new this();
     }
 
     console.debug(
-      `Sokuon fromHiragana: target hiragana is not Sokuon. hiragana: ${hiragana}`
+      `Sokuon fromHiragana: 対象が促音ではありません. hiragana: ${hiragana}`
     );
   }
 }

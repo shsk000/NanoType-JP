@@ -36,18 +36,18 @@ export class Romaji {
       const secondSound = input[1];
 
       // 促音+その他の場合（った、っかなど）
-      if (secondSound instanceof Other) {
+      if (secondSound instanceof Other || secondSound instanceof Youon) {
         const sokuonRomajiPattern = getConvertUnit(firstSound);
-        const otherRomajiPattern = getConvertUnit(secondSound);
+        const otherOrYouonRomajiPattern = getConvertUnit(secondSound);
         // 促音とその他を一文字ずつ入力した際のパターン情報
         const singleInputCombinations = RomajiPattern.concatFieldCombinations(
           sokuonRomajiPattern,
-          otherRomajiPattern
+          otherOrYouonRomajiPattern
         );
         // 促音とその他を同時に入力した際のパターン情報
         const simultaneouslyInputCombinations =
           RomajiPattern.createSimultaneouslySokuonInputPattern(
-            otherRomajiPattern
+            otherOrYouonRomajiPattern
           );
         return RomajiPattern.concat(
           simultaneouslyInputCombinations,
@@ -60,6 +60,8 @@ export class Romaji {
       );
     }
 
-    throw new Error("TODO: error handling");
+    throw new Error(
+      `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした. hiragana: ${input.getHiragana()}`
+    );
   }
 }

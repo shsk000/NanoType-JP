@@ -7,6 +7,9 @@ import { RomajiPattern } from "./romajiPattern";
 import { sokuonConvertList } from "./sokuonConvertList";
 import { youonConvertList } from "./youonConvertList";
 
+/**
+ * 拗音、促音、その他のデータからタイピング情報を取得する
+ */
 export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
   if (sound instanceof Other) {
     const convertUnit = otherConvertList[sound.getHiragana()];
@@ -25,6 +28,6 @@ export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
   }
 
   throw new Error(
-    `getConvertUnit: 想定外の引数が設定されています. hiragana: ${sound} `
+    `getConvertUnit: 想定外の引数が設定されています. hiragana: ${sound}`
   );
 };

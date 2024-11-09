@@ -3,6 +3,9 @@ import { Sokuon } from "../sokuon";
 import { JapaneseSound } from "../type";
 import { Youon } from "../youon";
 
+/**
+ * ひらがなの文章を促音・拗音・その他にパースする
+ */
 export const japaneseSoundsParser = (hiraganaSentence: string) => {
   const result: JapaneseSound[] = [];
 
@@ -36,7 +39,7 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       continue;
     }
     console.error(
-      `japaneseSoundsParser: パースできませんでした. hiragna: ${targetHiragana}`
+      `japaneseSoundsParser: パースできません. hiragna: ${targetHiragana}`
     );
   }
 

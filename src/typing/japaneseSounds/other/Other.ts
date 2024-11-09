@@ -20,13 +20,13 @@ export class Other {
     return false;
   }
 
-  static fromHiragana(hiragana: string) {
+  static fromHiragana(hiragana: string): Other | undefined {
     if (Other.isOther(hiragana)) {
       return new this(hiragana);
     }
 
-    throw new Error(
-      `Other fromHiragana: target hiragana is Youon or Sokuon. hiragana: ${hiragana}`
+    console.debug(
+      `Other fromHiragana: 対象が促音または拗音です. hiragana: ${hiragana}`
     );
   }
 }

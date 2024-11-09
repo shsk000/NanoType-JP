@@ -7,6 +7,9 @@ import { RomajiPattern } from "./romajiPattern";
 import { sokuonConvertList } from "./sokuonConvertList";
 import { youonConvertList } from "./youonConvertList";
 
+/**
+ * 拗音、促音、その他のデータからタイピング情報を取得する
+ */
 export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
   if (sound instanceof Other) {
     const convertUnit = otherConvertList[sound.getHiragana()];

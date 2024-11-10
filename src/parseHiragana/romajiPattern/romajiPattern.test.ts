@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { RomajiPattern, RomajiPatternUnit, getConvertUnit } from "./";
+import { RomajiPattern, RomajiPatternUnit, getConvertUnit } from ".";
 import { Other, Sokuon } from "../japaneseSounds";
 
 describe("romajiPattern.test.ts", () => {

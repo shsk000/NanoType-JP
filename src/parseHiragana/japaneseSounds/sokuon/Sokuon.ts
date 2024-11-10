@@ -16,12 +16,12 @@ export class Sokuon {
     return false;
   }
 
-  static fromHiragana(hiragana: string): Sokuon | undefined {
+  static fromHiragana(hiragana: string): Sokuon {
     if (Sokuon.isSokuon(hiragana)) {
       return new this();
     }
 
-    console.debug(
+    throw new Error(
       `Sokuon fromHiragana: 対象が促音ではありません. hiragana: ${hiragana}`
     );
   }

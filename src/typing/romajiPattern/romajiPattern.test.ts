@@ -1,8 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { RomajiPattern, RomajiPatternUnit } from "./romajiPattern";
-import { getConvertUnit } from "./getConvertUnit";
-import { Other } from "../japaneseSounds/other";
-import { Sokuon } from "../japaneseSounds/sokuon";
+import { RomajiPattern, RomajiPatternUnit, getConvertUnit } from "./";
+import { Other, Sokuon } from "../japaneseSounds";
 
 describe("romajiPattern.test.ts", () => {
   describe("createSimultaneouslySokuonInputPattern", () => {

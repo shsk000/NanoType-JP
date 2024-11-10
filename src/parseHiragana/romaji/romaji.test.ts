@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { Other, Youon, Sokuon } from "../japaneseSounds";
-import { Romaji } from "./";
+import { Romaji } from ".";
 import {
   RomajiPattern,
   RomajiPatternUnit,

@@ -35,16 +35,17 @@ export class Romaji {
       const firstSound = input[0];
       const secondSound = input[1];
 
-      // 促音+その他の場合（った、っかなど）
+      // 促音+その他または促音+拗音のパターン
+      // 入力の仕様としては一緒だったのでまとめてます
       if (secondSound instanceof Other || secondSound instanceof Youon) {
         const sokuonRomajiPattern = getConvertUnit(firstSound);
         const otherOrYouonRomajiPattern = getConvertUnit(secondSound);
-        // 促音とその他を一文字ずつ入力した際のパターン情報
+        // 促音とその他または拗音を一文字ずつ入力した際のパターン情報
         const singleInputCombinations = RomajiPattern.concatFieldCombinations(
           sokuonRomajiPattern,
           otherOrYouonRomajiPattern
         );
-        // 促音とその他を同時に入力した際のパターン情報
+        // 促音とその他または拗音を同時に入力した際のパターン情報
         const simultaneouslyInputCombinations =
           RomajiPattern.createSimultaneouslySokuonInputPattern(
             otherOrYouonRomajiPattern

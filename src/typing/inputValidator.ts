@@ -8,8 +8,15 @@ export class InputValidator {
    * 0は未正解
    */
   private correctLength: number = 0;
+  /** 判定対象のアルファベット情報 */
+  private alphabetAllPatern: string[] = [];
 
-  constructor(private alphabetAllPatern: string[]) {}
+  constructor() {}
+
+  public initialize(alphabetAllPatern: string[]) {
+    this.alphabetAllPatern = alphabetAllPatern;
+    this.correctLength = 0;
+  }
 
   public getCorrectLength() {
     return this.correctLength;
@@ -20,6 +27,7 @@ export class InputValidator {
   }
 
   public input(alphabet: string): InputResult {
+    // backspaceで入力削除はできないため、入力しなかったパターンは配列から除外する
     const filtered = this.alphabetAllPatern.filter((sentence) => {
       return sentence[this.correctLength] === alphabet;
     });
@@ -28,8 +36,6 @@ export class InputValidator {
     if (filtered.length > 0) {
       this.alphabetAllPatern = filtered;
       this.correctLength++;
-
-      console.log(this.alphabetAllPatern);
 
       if (filtered.length === 1 && filtered[0].length === this.correctLength) {
         return {

@@ -194,6 +194,16 @@ describe("romaji.test.ts", () => {
           new RomajiPatternUnit("xtuca"),
         ]),
       ],
+      [
+        ["っ", "つ"],
+        new RomajiPattern(new RomajiPatternUnit("ttu"), [
+          new RomajiPatternUnit("ttsu"),
+          new RomajiPatternUnit("ltutu"),
+          new RomajiPatternUnit("ltutsu"),
+          new RomajiPatternUnit("xtutu"),
+          new RomajiPatternUnit("xtutsu"),
+        ]),
+      ],
     ])(
       "%s. Sokuon+OtherからRomajiへ変換できる",
       ([sokuonHiragana, otherHiragana], expected) => {

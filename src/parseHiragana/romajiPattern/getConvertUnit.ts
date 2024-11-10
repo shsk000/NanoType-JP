@@ -4,7 +4,7 @@ import {
   sokuonConvertList,
   youonConvertList,
   RomajiPattern,
-} from "./";
+} from ".";
 
 /**
  * 拗音、促音、その他のデータからタイピング情報を取得する

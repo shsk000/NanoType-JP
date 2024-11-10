@@ -1,4 +1,4 @@
-import { RomajiPattern, RomajiPatternUnit, RomajiConvertList } from "./";
+import { RomajiPattern, RomajiPatternUnit, RomajiConvertList } from ".";
 
 export const otherConvertList: RomajiConvertList = {
   あ: new RomajiPattern(new RomajiPatternUnit("a")),

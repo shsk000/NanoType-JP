@@ -1,5 +1,5 @@
 type InputResult = {
-  result: "correct" | "incorrect" | "finish";
+  result: "correct" | "fail" | "complate";
 };
 
 export class InputValidator {
@@ -39,7 +39,7 @@ export class InputValidator {
 
       if (filtered.length === 1 && filtered[0].length === this.correctLength) {
         return {
-          result: "finish",
+          result: "complate",
         };
       }
 
@@ -49,7 +49,7 @@ export class InputValidator {
     }
 
     return {
-      result: "incorrect",
+      result: "fail",
     };
   }
 }

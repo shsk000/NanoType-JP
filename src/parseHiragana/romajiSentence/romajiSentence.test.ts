@@ -48,7 +48,6 @@ describe("romajiSentence.test.ts", () => {
 
   test("末尾に促音がくる", () => {
     const sentence = createRomajiSentence("っつっっぁぃ");
-    console.log(sentence);
     expect(sentence).toStrictEqual([
       new Romaji([new Sokuon(), new Other("つ")]),
       new Romaji(new Sokuon()),

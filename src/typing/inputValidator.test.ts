@@ -16,7 +16,7 @@ describe("inputValidator.test.ts", () => {
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aaa", "aab"]);
 
     result = validator.input("b");
-    expect(result.result).toBe("finish");
+    expect(result.result).toBe("complate");
     expect(validator.getCorrectLength()).toBe(3);
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aab"]);
   });
@@ -25,12 +25,12 @@ describe("inputValidator.test.ts", () => {
     const validator = new InputValidator();
     validator.initialize(["a", "b", "c"]);
     let result = validator.input("a");
-    expect(result.result).toBe("finish");
+    expect(result.result).toBe("complate");
     expect(validator.getCorrectLength()).toBe(1);
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a"]);
 
     result = validator.input("b");
-    expect(result.result).toBe("incorrect");
+    expect(result.result).toBe("fail");
     expect(validator.getCorrectLength()).toBe(1);
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a"]);
   });
@@ -39,7 +39,7 @@ describe("inputValidator.test.ts", () => {
     const validator = new InputValidator();
     validator.initialize(["a", "b", "c"]);
     let result = validator.input("d");
-    expect(result.result).toBe("incorrect");
+    expect(result.result).toBe("fail");
     expect(validator.getCorrectLength()).toBe(0);
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a", "b", "c"]);
   });

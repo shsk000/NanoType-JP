@@ -84,19 +84,18 @@ export class Youon {
     return false;
   }
 
-  static fromHiragana(hiragana: string): Youon | undefined {
+  static fromHiragana(hiragana: string): Youon {
     if (hiragana.length !== 2) {
-      console.debug(
+      throw new Error(
         `Youon fromHiragana: 文字数が不正です. hiragana: ${hiragana}`
       );
-      return;
     }
 
     if (Youon.isYouon(hiragana)) {
       return new this(hiragana);
     }
 
-    console.debug(
+    throw new Error(
       `Youon fromHiragana: 対象は拗音ではありません. hiragana: ${hiragana}`
     );
   }

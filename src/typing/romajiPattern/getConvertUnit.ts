@@ -13,13 +13,17 @@ export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
   if (sound instanceof Other) {
     const convertUnit = otherConvertList[sound.getHiragana()];
     if (!convertUnit)
-      throw new Error("getConvertUnit: 変換情報が見つかりません");
+      throw new Error(
+        `getConvertUnit: 変換情報が見つかりません. hiragana: ${sound.getHiragana()}`
+      );
     return convertUnit;
   }
   if (sound instanceof Youon) {
     const convertUnit = youonConvertList[sound.getHiragana()];
     if (!convertUnit)
-      throw new Error("getConvertUnit: 変換情報が見つかりません");
+      throw new Error(
+        `getConvertUnit: 変換情報が見つかりません. hiragana: ${sound.getHiragana()}`
+      );
     return convertUnit;
   }
   if (sound instanceof Sokuon) {

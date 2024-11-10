@@ -23,7 +23,11 @@ export class Romaji {
   }
 
   private decisionRomajiPattern(input: InputUnit): RomajiPattern {
-    if (input instanceof Other || input instanceof Youon) {
+    if (
+      input instanceof Other ||
+      input instanceof Youon ||
+      input instanceof Sokuon
+    ) {
       return getConvertUnit(input);
     }
 
@@ -56,6 +60,7 @@ export class Romaji {
       );
     }
 
+    console.error(input);
     throw new Error(
       `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした. hiragana: ${input.getHiragana()}`
     );

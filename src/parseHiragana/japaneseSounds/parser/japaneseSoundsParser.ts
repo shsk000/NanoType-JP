@@ -15,13 +15,16 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       | string
       | undefined;
 
-    const sokuon = Sokuon.fromHiragana(targetHiragana);
-    if (sokuon) {
+    if (Sokuon.isSokuon(targetHiragana)) {
+      const sokuon = Sokuon.fromHiragana(targetHiragana);
       result.push(sokuon);
       continue;
     }
 
-    if (Youon.isSutegana(nextTargetHiragana)) {
+    if (
+      Youon.isSutegana(nextTargetHiragana) &&
+      Youon.isYouon(targetHiragana + nextTargetHiragana)
+    ) {
       const youon = Youon.fromHiragana(targetHiragana + nextTargetHiragana);
       if (youon) {
         result.push(youon);
@@ -33,12 +36,13 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
       // その場合１文字ずつOtherクラスを作成する
     }
 
-    const other = Other.fromHiragana(targetHiragana);
-    if (other) {
+    if (Other.isOther(targetHiragana)) {
+      const other = Other.fromHiragana(targetHiragana);
       result.push(other);
       continue;
     }
-    console.error(
+
+    throw new Error(
       `japaneseSoundsParser: パースできません. hiragna: ${targetHiragana}`
     );
   }

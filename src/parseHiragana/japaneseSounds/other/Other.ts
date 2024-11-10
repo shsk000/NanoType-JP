@@ -20,12 +20,12 @@ export class Other {
     return false;
   }
 
-  static fromHiragana(hiragana: string): Other | undefined {
+  static fromHiragana(hiragana: string): Other {
     if (Other.isOther(hiragana)) {
       return new this(hiragana);
     }
 
-    console.debug(
+    throw new Error(
       `Other fromHiragana: 対象が促音または拗音です. hiragana: ${hiragana}`
     );
   }

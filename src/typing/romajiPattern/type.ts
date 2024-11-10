@@ -1,3 +1,3 @@
-import { RomajiPattern } from "./romajiPattern";
+import { RomajiPattern } from "./";
 
 export type RomajiConvertList = Record<string, RomajiPattern>;

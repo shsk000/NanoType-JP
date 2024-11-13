@@ -1,5 +1,7 @@
 type InputResult = {
   result: "correct" | "fail" | "complate";
+  correctLength: number;
+  selectedAlphabetSentence: string;
 };
 
 export class InputValidator {
@@ -40,16 +42,22 @@ export class InputValidator {
       if (filtered.length === 1 && filtered[0].length === this.correctLength) {
         return {
           result: "complate",
+          correctLength: this.getCorrectLength(),
+          selectedAlphabetSentence: this.alphabetAllPatern[0],
         };
       }
 
       return {
         result: "correct",
+        correctLength: this.getCorrectLength(),
+        selectedAlphabetSentence: this.alphabetAllPatern[0],
       };
     }
 
     return {
       result: "fail",
+      correctLength: this.getCorrectLength(),
+      selectedAlphabetSentence: this.alphabetAllPatern[0],
     };
   }
 }

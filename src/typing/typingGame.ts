@@ -2,6 +2,14 @@ import { createRomajiSentence } from "../parseHiragana/romajiSentence";
 import { AlphabetInputPattern } from "./alphabetInputPattern";
 import { InputValidator } from "./inputValidator";
 
+/** タイプしたアルファベットの情報 */
+type InputAlphabetResult = {
+  /** 入力が完了したアルファベット */
+  completedInputAlphabet: string;
+  /** 残りの入力が必要なアルファベット */
+  remainedAlphabet: string;
+};
+
 type AnswerResult = {
   result: "correct" | "fail" | "complate";
   /** １タイプごと：入力失敗数 */
@@ -9,9 +17,11 @@ type AnswerResult = {
   /** １タイプごと：入力成功数 */
   correctCount: number;
   /** 入力が完了した文章数 */
-  completedSentences: number;
+  completedCount: number;
   /** １タイプごと：入力失敗数 */
   perfectStreakCount: number;
+
+  inputAlphabet: InputAlphabetResult;
 };
 
 export class TypingGame {
@@ -23,7 +33,7 @@ export class TypingGame {
   /** １タイプごと：入力成功数 */
   private correctCount: number = 0;
   /** 入力が完了した文章数 */
-  private completedSentences: number = 0;
+  private completedCount: number = 0;
   /** １タイプごと：入力失敗数 */
   private perfectStreakCount: number = 0;
 
@@ -34,7 +44,7 @@ export class TypingGame {
   public initialize() {
     this.failCount = 0;
     this.correctCount = 0;
-    this.completedSentences = 0;
+    this.completedCount = 0;
     this.perfectStreakCount = 0;
   }
 
@@ -46,30 +56,48 @@ export class TypingGame {
   }
 
   public answerAlphabet(alphabet: string): AnswerResult {
-    const { result } = this.inputValidator.input(alphabet);
+    const response = this.inputValidator.input(alphabet);
 
-    if (result === "correct") {
+    if (response.result === "correct") {
       this.correctCount++;
       return {
         result: "correct",
         failCount: this.failCount,
         correctCount: this.correctCount,
-        completedSentences: this.completedSentences,
+        completedCount: this.completedCount,
         perfectStreakCount: this.perfectStreakCount,
+        inputAlphabet: {
+          completedInputAlphabet: response.selectedAlphabetSentence.slice(
+            0,
+            response.correctLength
+          ),
+          remainedAlphabet: response.selectedAlphabetSentence.slice(
+            response.correctLength
+          ),
+        },
       };
     }
 
-    if (result === "complate") {
+    if (response.result === "complate") {
       this.correctCount++;
-      this.completedSentences++;
+      this.completedCount++;
       this.perfectStreakCount++;
 
       return {
         result: "complate",
         failCount: this.failCount,
         correctCount: this.correctCount,
-        completedSentences: this.completedSentences,
+        completedCount: this.completedCount,
         perfectStreakCount: this.perfectStreakCount,
+        inputAlphabet: {
+          completedInputAlphabet: response.selectedAlphabetSentence.slice(
+            0,
+            response.correctLength
+          ),
+          remainedAlphabet: response.selectedAlphabetSentence.slice(
+            response.correctLength
+          ),
+        },
       };
     }
 
@@ -79,8 +107,17 @@ export class TypingGame {
       result: "fail",
       failCount: this.failCount,
       correctCount: this.correctCount,
-      completedSentences: this.completedSentences,
+      completedCount: this.completedCount,
       perfectStreakCount: this.perfectStreakCount,
+      inputAlphabet: {
+        completedInputAlphabet: response.selectedAlphabetSentence.slice(
+          0,
+          response.correctLength
+        ),
+        remainedAlphabet: response.selectedAlphabetSentence.slice(
+          response.correctLength
+        ),
+      },
     };
   }
 }

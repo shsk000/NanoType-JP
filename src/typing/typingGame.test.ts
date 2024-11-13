@@ -71,12 +71,16 @@ describe("typingGame.test.ts", () => {
         result: "correct",
         failCount: 0,
         correctCount: 1,
-        completedSentences: 0,
+        completedCount: 0,
         perfectStreakCount: 0,
+        inputAlphabet: {
+          completedInputAlphabet: "k",
+          remainedAlphabet: "a",
+        },
       });
     });
 
-    test("ノーミスで文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedSentencesがカウントアップされる", () => {
+    test("ノーミスで文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedCountがカウントアップされる", () => {
       const game = new TypingGame();
       game.registerNewHiragana("か");
       game.answerAlphabet("k");
@@ -85,12 +89,16 @@ describe("typingGame.test.ts", () => {
         result: "complate",
         failCount: 0,
         correctCount: 2,
-        completedSentences: 1,
+        completedCount: 1,
         perfectStreakCount: 1,
+        inputAlphabet: {
+          completedInputAlphabet: "ka",
+          remainedAlphabet: "",
+        },
       });
     });
 
-    test("失敗しながらも文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedSentencesがカウントアップされる", () => {
+    test("失敗しながらも文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedCountがカウントアップされる", () => {
       const game = new TypingGame();
       game.registerNewHiragana("か");
       game.answerAlphabet("k");
@@ -100,8 +108,12 @@ describe("typingGame.test.ts", () => {
         result: "fail",
         failCount: 1,
         correctCount: 1,
-        completedSentences: 0,
+        completedCount: 0,
         perfectStreakCount: 0,
+        inputAlphabet: {
+          completedInputAlphabet: "k",
+          remainedAlphabet: "a",
+        },
       });
 
       result = game.answerAlphabet("a");
@@ -109,8 +121,12 @@ describe("typingGame.test.ts", () => {
         result: "complate",
         failCount: 1,
         correctCount: 2,
-        completedSentences: 1,
+        completedCount: 1,
         perfectStreakCount: 1,
+        inputAlphabet: {
+          completedInputAlphabet: "ka",
+          remainedAlphabet: "",
+        },
       });
     });
   });

@@ -7,17 +7,20 @@ describe("inputValidator.test.ts", () => {
     validator.initialize(["aaa", "aab", "bbb"]);
     let result = validator.input("a");
     expect(result.result).toBe("correct");
-    expect(validator.getCorrectLength()).toBe(1);
+    expect(result.correctLength).toBe(1);
+    expect(result.selectedAlphabetSentence).toBe("aaa");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aaa", "aab"]);
 
     result = validator.input("a");
     expect(result.result).toBe("correct");
-    expect(validator.getCorrectLength()).toBe(2);
+    expect(result.correctLength).toBe(2);
+    expect(result.selectedAlphabetSentence).toBe("aaa");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aaa", "aab"]);
 
     result = validator.input("b");
     expect(result.result).toBe("complate");
-    expect(validator.getCorrectLength()).toBe(3);
+    expect(result.correctLength).toBe(3);
+    expect(result.selectedAlphabetSentence).toBe("aab");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aab"]);
   });
 
@@ -26,12 +29,14 @@ describe("inputValidator.test.ts", () => {
     validator.initialize(["a", "b", "c"]);
     let result = validator.input("a");
     expect(result.result).toBe("complate");
-    expect(validator.getCorrectLength()).toBe(1);
+    expect(result.correctLength).toBe(1);
+    expect(result.selectedAlphabetSentence).toBe("a");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a"]);
 
     result = validator.input("b");
     expect(result.result).toBe("fail");
-    expect(validator.getCorrectLength()).toBe(1);
+    expect(result.correctLength).toBe(1);
+    expect(result.selectedAlphabetSentence).toBe("a");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a"]);
   });
 
@@ -40,7 +45,8 @@ describe("inputValidator.test.ts", () => {
     validator.initialize(["a", "b", "c"]);
     let result = validator.input("d");
     expect(result.result).toBe("fail");
-    expect(validator.getCorrectLength()).toBe(0);
+    expect(result.correctLength).toBe(0);
+    expect(result.selectedAlphabetSentence).toBe("a");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a", "b", "c"]);
   });
 });

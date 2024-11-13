@@ -129,7 +129,5 @@ export const otherConvertList: RomajiConvertList = {
   ゑ: new RomajiPattern(new RomajiPatternUnit("e"), [
     new RomajiPatternUnit("wye"),
   ]),
-  ヴ: {
-    main: new RomajiPatternUnit("vu"),
-  },
+  ヴ: new RomajiPattern(new RomajiPatternUnit("vu")),
 };

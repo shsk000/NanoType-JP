@@ -14,7 +14,7 @@ export class Romaji {
   /** ローマ字タイプ入力のパターンデータ */
   private romajiPattern: RomajiPattern;
 
-  constructor(private inputUnit: InputUnit) {
+  constructor(inputUnit: InputUnit) {
     this.romajiPattern = this.decisionRomajiPattern(inputUnit);
   }
 
@@ -63,7 +63,7 @@ export class Romaji {
 
     console.error(input);
     throw new Error(
-      `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした. hiragana: ${input.getHiragana()}`
+      `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした.`
     );
   }
 }

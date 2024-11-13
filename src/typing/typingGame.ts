@@ -24,6 +24,11 @@ type AnswerResult = {
   inputAlphabet: InputAlphabetResult;
 };
 
+type RegisterResult = {
+  inputPattern: string[];
+  inputAlphabet: InputAlphabetResult;
+};
+
 export class TypingGame {
   private inputPattern: string[] = [];
   private inputValidator: InputValidator;
@@ -48,14 +53,26 @@ export class TypingGame {
     this.perfectStreakCount = 0;
   }
 
-  public registerNewHiragana(hiragana: string) {
+  public registerNewHiragana(hiragana: string): RegisterResult {
     const romajiSentence = createRomajiSentence(hiragana);
     const pattern = new AlphabetInputPattern(romajiSentence);
     this.inputPattern = pattern.getAllPatern();
     this.inputValidator.initialize(this.inputPattern);
+
+    return {
+      inputAlphabet: {
+        remainedAlphabet: pattern.getAllPatern()[0],
+        completedInputAlphabet: "",
+      },
+      inputPattern: this.inputPattern,
+    };
   }
 
   public answerAlphabet(alphabet: string): AnswerResult {
+    if (this.inputPattern.length === 0) {
+      throw new Error("typingGame: 出題していません");
+    }
+
     const response = this.inputValidator.input(alphabet);
 
     if (response.result === "correct") {

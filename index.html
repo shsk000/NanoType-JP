@@ -1,13 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
+
+    <style>
+      p {
+        margin: 0;
+        line-height: 1.5;
+      }
+      textarea {
+        width: 500px;
+        height: 200px;
+      }
+      button {
+        vertical-align: top;
+      }
+      .content {
+        display: flex;
+      }
+      .content-hiragana {
+        flex: 1;
+      }
+      .content-pattern {
+        flex-basis: 300px;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+
+    <h1>出題分を「ひらがな」で入力してください</h1>
+    <form action="#" id="registerForm">
+      <textarea name="register" id="register"></textarea>
+      <button type="button">出題</button>
+    </form>
+
+    <div class="content">
+      <div class="content-hiragana">
+        入力情報
+        <p id="registerHiragana"></p>
+      </div>
+      <div class="content-pattern">
+        入力パターン情報
+        <p id="inputPattern"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/debug.ts"></script>
   </body>
 </html>

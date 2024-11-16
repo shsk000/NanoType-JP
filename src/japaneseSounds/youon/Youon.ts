@@ -13,7 +13,7 @@ export class Youon {
     return this.hiragana[0];
   }
 
-  public getSecondCharacterHiranaga(): string {
+  public getSecondCharacterHiragana(): string {
     return this.hiragana[1];
   }
 

@@ -115,6 +115,8 @@ describe("romaji.test.ts", () => {
         {
           main: new RomajiPatternUnit("zyi"),
           sub: [
+            new RomajiPatternUnit("zili"),
+            new RomajiPatternUnit("zixi"),
             new RomajiPatternUnit("ji"),
             new RomajiPatternUnit("jili"),
             new RomajiPatternUnit("jixi"),
@@ -234,10 +236,14 @@ describe("romaji.test.ts", () => {
         new RomajiPattern(new RomajiPatternUnit("zzya"), [
           new RomajiPatternUnit("jja"),
           new RomajiPatternUnit("ltuzya"),
+          new RomajiPatternUnit("ltuzilya"),
+          new RomajiPatternUnit("ltuzixya"),
           new RomajiPatternUnit("ltuja"),
           new RomajiPatternUnit("ltujilya"),
           new RomajiPatternUnit("ltujixya"),
           new RomajiPatternUnit("xtuzya"),
+          new RomajiPatternUnit("xtuzilya"),
+          new RomajiPatternUnit("xtuzixya"),
           new RomajiPatternUnit("xtuja"),
           new RomajiPatternUnit("xtujilya"),
           new RomajiPatternUnit("xtujixya"),

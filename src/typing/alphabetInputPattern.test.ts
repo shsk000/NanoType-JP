@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { createRomajiSentence } from "../parseHiragana/romajiSentence";
+import { parseHiragana } from "../parseHiragana/parse";
 import { AlphabetInputPattern } from "./alphabetInputPattern";
 
 describe("alphabetInputPattern.test.ts", () => {
@@ -18,7 +18,7 @@ describe("alphabetInputPattern.test.ts", () => {
       ],
     ],
   ])("%s. 組み合わせパターンを生成している", (hiraganaSentence, expected) => {
-    const romajiArr = createRomajiSentence(hiraganaSentence);
+    const romajiArr = parseHiragana(hiraganaSentence);
     const pattern = new AlphabetInputPattern(romajiArr);
 
     expect(pattern.getAllPatern()).toStrictEqual(expected);

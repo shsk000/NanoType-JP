@@ -16,7 +16,7 @@ jobs:
         with:
           node-version-file: ".node-version"
 
-      - name: "Build vite"
+      - name: Build vite
         run: |
           npm install && npm run build
 

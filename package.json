@@ -1,7 +1,7 @@
 {
   "name": "typing-game-core",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,14 @@
   "devDependencies": {
     "typescript": "~5.6.2",
     "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.1.4"
+  },
+  "exports": {
+    ".": {
+      "umd": "./dist/index.umd.cjs",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   }
 }

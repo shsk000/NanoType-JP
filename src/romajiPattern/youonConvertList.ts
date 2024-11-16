@@ -222,26 +222,36 @@ export const youonConvertList: RomajiConvertList = {
   ]),
 
   じゃ: new RomajiPattern(new RomajiPatternUnit("zya"), [
+    new RomajiPatternUnit("zilya"),
+    new RomajiPatternUnit("zixya"),
     new RomajiPatternUnit("ja"),
     new RomajiPatternUnit("jilya"),
     new RomajiPatternUnit("jixya"),
   ]),
   じぃ: new RomajiPattern(new RomajiPatternUnit("zyi"), [
+    new RomajiPatternUnit("zili"),
+    new RomajiPatternUnit("zixi"),
     new RomajiPatternUnit("ji"),
     new RomajiPatternUnit("jili"),
     new RomajiPatternUnit("jixi"),
   ]),
   じゅ: new RomajiPattern(new RomajiPatternUnit("zyu"), [
+    new RomajiPatternUnit("zilyu"),
+    new RomajiPatternUnit("zixyu"),
     new RomajiPatternUnit("ju"),
     new RomajiPatternUnit("jilyu"),
     new RomajiPatternUnit("jixyu"),
   ]),
   じぇ: new RomajiPattern(new RomajiPatternUnit("zye"), [
+    new RomajiPatternUnit("zile"),
+    new RomajiPatternUnit("zixe"),
     new RomajiPatternUnit("je"),
     new RomajiPatternUnit("jile"),
     new RomajiPatternUnit("jixe"),
   ]),
   じょ: new RomajiPattern(new RomajiPatternUnit("zyo"), [
+    new RomajiPatternUnit("zilyo"),
+    new RomajiPatternUnit("zixyo"),
     new RomajiPatternUnit("jo"),
     new RomajiPatternUnit("jilyo"),
     new RomajiPatternUnit("jixyo"),

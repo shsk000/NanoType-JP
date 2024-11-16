@@ -1,4 +1,4 @@
-import { Romaji } from "../parseHiragana/romaji";
+import { Romaji } from "../romaji";
 
 /**
  * Romaji[]から全通りのアルファベット入力パターンを作成する

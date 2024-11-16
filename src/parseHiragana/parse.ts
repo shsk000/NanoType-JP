@@ -5,10 +5,10 @@ import { Romaji } from "../romaji/romaji";
 /**
  * ひらがなの文章からRomajiPattern情報を作成する
  */
-export const createRomajiSentence = (hiraganaSentence: string): Romaji[] => {
+export const parseHiragana = (hiraganaSentence: string): Romaji[] => {
   const sounds = japaneseSoundsParser(hiraganaSentence);
 
-  const romajiSentence: Romaji[] = [];
+  const parsedHiragana: Romaji[] = [];
 
   for (let i = 0; i < sounds.length; i++) {
     const targetSound = sounds[i];
@@ -17,19 +17,19 @@ export const createRomajiSentence = (hiraganaSentence: string): Romaji[] => {
     // った、っきゃなどSokuon + Other, Sokuon + Youonの場合は二文字合わせてRomajiを生成する
     if (targetSound instanceof Sokuon && nextSound) {
       if (nextSound instanceof Other) {
-        romajiSentence.push(new Romaji([targetSound, nextSound]));
+        parsedHiragana.push(new Romaji([targetSound, nextSound]));
         i++;
         continue;
       }
       if (nextSound instanceof Youon) {
-        romajiSentence.push(new Romaji([targetSound, nextSound]));
+        parsedHiragana.push(new Romaji([targetSound, nextSound]));
         i++;
         continue;
       }
     }
 
-    romajiSentence.push(new Romaji(targetSound));
+    parsedHiragana.push(new Romaji(targetSound));
   }
 
-  return romajiSentence;
+  return parsedHiragana;
 };

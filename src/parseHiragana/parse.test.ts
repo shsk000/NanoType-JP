@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
-import { createRomajiSentence } from "./romajiSentence";
+import { parseHiragana } from "./parse";
 import { Other, Sokuon, Youon } from "../japaneseSounds";
 import { Romaji } from "../romaji/romaji";
 
-describe("romajiSentence.test.ts", () => {
+describe("parse.test.ts", () => {
   test("Otherのみ", () => {
-    const sentence = createRomajiSentence("あいうえお");
+    const sentence = parseHiragana("あいうえお");
     expect(sentence).toStrictEqual([
       new Romaji(new Other("あ")),
       new Romaji(new Other("い")),
@@ -16,7 +16,7 @@ describe("romajiSentence.test.ts", () => {
   });
 
   test("Sokuonあり", () => {
-    const sentence = createRomajiSentence("あるてっつぁ");
+    const sentence = parseHiragana("あるてっつぁ");
     expect(sentence).toStrictEqual([
       new Romaji(new Other("あ")),
       new Romaji(new Other("る")),
@@ -27,7 +27,7 @@ describe("romajiSentence.test.ts", () => {
   });
 
   test("Youonあり", () => {
-    const sentence = createRomajiSentence("ちょもらんま");
+    const sentence = parseHiragana("ちょもらんま");
     expect(sentence).toStrictEqual([
       new Romaji(new Youon("ちょ")),
       new Romaji(new Other("も")),
@@ -38,7 +38,7 @@ describe("romajiSentence.test.ts", () => {
   });
 
   test("Sokuon + Youonあり", () => {
-    const sentence = createRomajiSentence("ぱっきゃお");
+    const sentence = parseHiragana("ぱっきゃお");
     expect(sentence).toStrictEqual([
       new Romaji(new Other("ぱ")),
       new Romaji([new Sokuon(), new Youon("きゃ")]),
@@ -47,7 +47,7 @@ describe("romajiSentence.test.ts", () => {
   });
 
   test("末尾に促音がくる", () => {
-    const sentence = createRomajiSentence("っつっっぁぃ");
+    const sentence = parseHiragana("っつっっぁぃ");
     expect(sentence).toStrictEqual([
       new Romaji([new Sokuon(), new Other("つ")]),
       new Romaji(new Sokuon()),

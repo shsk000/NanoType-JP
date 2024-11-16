@@ -1,4 +1,4 @@
-import { createRomajiSentence } from "../parseHiragana/romajiSentence";
+import { parseHiragana } from "../parseHiragana/parse";
 import { AlphabetInputPattern } from "./alphabetInputPattern";
 import { InputValidator } from "./inputValidator";
 
@@ -54,8 +54,8 @@ export class TypingGame {
   }
 
   public registerNewHiragana(hiragana: string): RegisterResult {
-    const romajiSentence = createRomajiSentence(hiragana);
-    const pattern = new AlphabetInputPattern(romajiSentence);
+    const parsedHiragana = parseHiragana(hiragana);
+    const pattern = new AlphabetInputPattern(parsedHiragana);
     this.inputPattern = pattern.getAllPatern();
     this.inputValidator.initialize(this.inputPattern);
 

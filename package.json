@@ -1,11 +1,12 @@
 {
-  "name": "typing-game-core",
+  "name": "nano-type-jp",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build --mode lib",
+    "build:debug": "vite build --mode debug",
     "preview": "vite preview",
     "test": "vitest"
   },

@@ -4,18 +4,24 @@ import { resolve } from "path";
 import dtsPlugin from "vite-plugin-dts";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  return {
-    base: "./",
+  if (mode === "debug") {
+    return {
+      base: "./",
+    };
+  }
+  if (mode === "lib")
+    return {
+      base: "./",
 
-    build: {
-      lib: {
-        entry: resolve(__dirname, "src/index.ts"),
-        name: "index",
-        fileName: "index",
-        formats: ["es", "umd", "cjs"],
+      build: {
+        lib: {
+          entry: resolve(__dirname, "src/index.ts"),
+          name: "index",
+          fileName: "index",
+          formats: ["es", "umd", "cjs"],
+        },
       },
-    },
 
-    plugins: [dtsPlugin()],
-  };
+      plugins: [dtsPlugin()],
+    };
 });

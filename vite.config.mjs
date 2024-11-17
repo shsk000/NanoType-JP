@@ -9,19 +9,18 @@ export default defineConfig(({ mode }) => {
       base: "./",
     };
   }
-  if (mode === "lib")
-    return {
-      base: "./",
+  return {
+    base: "./",
 
-      build: {
-        lib: {
-          entry: resolve(__dirname, "src/index.ts"),
-          name: "index",
-          fileName: "index",
-          formats: ["es", "umd", "cjs"],
-        },
+    build: {
+      lib: {
+        entry: resolve(__dirname, "src/index.ts"),
+        name: "index",
+        fileName: "index",
+        formats: ["es", "umd", "cjs"],
       },
+    },
 
-      plugins: [dtsPlugin()],
-    };
+    plugins: [dtsPlugin()],
+  };
 });

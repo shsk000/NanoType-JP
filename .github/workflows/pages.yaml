@@ -1,4 +1,4 @@
-name: debug html deploy
+name: Debug HTML Deploy
 
 on:
   push:

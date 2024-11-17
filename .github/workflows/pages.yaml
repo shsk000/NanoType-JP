@@ -18,7 +18,7 @@ jobs:
 
       - name: Build vite
         run: |
-          npm install && npm run build
+          npm install && npm run build --mode debug
 
       - uses: actions/upload-artifact@v3
         with:

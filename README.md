@@ -1,1 +1,1 @@
-# typing-game-core
+# nano-type-jp

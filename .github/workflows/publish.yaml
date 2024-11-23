@@ -8,12 +8,11 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-
-      permissions:
-        contents: read
-        id-token: write
 
       - name: Use Node.js
         uses: actions/setup-node@v4

@@ -1,4 +1,4 @@
-name: debug html deploy
+name: Debug HTML Deploy
 
 on:
   push:
@@ -16,9 +16,9 @@ jobs:
         with:
           node-version-file: ".node-version"
 
-      - name: "Build vite"
+      - name: Build vite
         run: |
-          npm install && npm run build
+          npm install && npm run build:debug
 
       - uses: actions/upload-artifact@v3
         with:

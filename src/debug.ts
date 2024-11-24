@@ -1,6 +1,6 @@
-import { TypingGame } from "./typing/typingGame";
+import { NanoTypeJp } from "./typing/typingGame";
 
-const t = new TypingGame();
+const t = new NanoTypeJp();
 
 window.addEventListener("DOMContentLoaded", () => {
   const registerHiragana =

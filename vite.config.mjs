@@ -15,8 +15,7 @@ export default defineConfig(({ mode }) => {
     build: {
       lib: {
         entry: resolve(__dirname, "src/index.ts"),
-        name: "index",
-        fileName: "index",
+        name: "NanoTypeJp",
         formats: ["es", "umd", "cjs"],
       },
     },

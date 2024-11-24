@@ -29,7 +29,7 @@ type RegisterResult = {
   inputAlphabet: InputAlphabetResult;
 };
 
-export class TypingGame {
+export class NanoTypeJp {
   private inputPattern: string[] = [];
   private inputValidator: InputValidator;
 

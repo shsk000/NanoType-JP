@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { TypingGame } from "./typingGame";
+import { NanoTypeJp } from "./typingGame";
 
 describe("typingGame.test.ts", () => {
   test("正解入力を行った際はresult: correct, 完了後はresult: complateを返却すること", () => {
-    const game = new TypingGame();
+    const game = new NanoTypeJp();
     game.registerNewHiragana("かきくけこ");
 
     let result = game.answerAlphabet("k");
@@ -29,7 +29,7 @@ describe("typingGame.test.ts", () => {
   });
 
   test("patternがmain以外のものも入力できること", () => {
-    const game = new TypingGame();
+    const game = new NanoTypeJp();
     game.registerNewHiragana("かきくけこ");
 
     // kではなくcで入力する
@@ -56,7 +56,7 @@ describe("typingGame.test.ts", () => {
   });
 
   test("不正解の場合はresult: failを返却すること", () => {
-    const game = new TypingGame();
+    const game = new NanoTypeJp();
     game.registerNewHiragana("かきくけこ");
     const result = game.answerAlphabet("a");
     expect(result.result).toBe("fail");
@@ -64,7 +64,7 @@ describe("typingGame.test.ts", () => {
 
   describe("正解・失敗数のCount", () => {
     test("成功するとcorrectCountがカウントアップされる", () => {
-      const game = new TypingGame();
+      const game = new NanoTypeJp();
       game.registerNewHiragana("か");
       const result = game.answerAlphabet("k");
       expect(result).toStrictEqual({
@@ -81,7 +81,7 @@ describe("typingGame.test.ts", () => {
     });
 
     test("ノーミスで文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedCountがカウントアップされる", () => {
-      const game = new TypingGame();
+      const game = new NanoTypeJp();
       game.registerNewHiragana("か");
       game.answerAlphabet("k");
       const result = game.answerAlphabet("a");
@@ -99,7 +99,7 @@ describe("typingGame.test.ts", () => {
     });
 
     test("失敗しながらも文章の入力が完了するとcorrectCountとperfectStreakCountとcompletedCountがカウントアップされる", () => {
-      const game = new TypingGame();
+      const game = new NanoTypeJp();
       game.registerNewHiragana("か");
       game.answerAlphabet("k");
       // 間違える

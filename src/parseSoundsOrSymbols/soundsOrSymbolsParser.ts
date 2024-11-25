@@ -1,19 +1,28 @@
-import { Other } from "../other";
-import { Sokuon } from "../sokuon";
-import { JapaneseSound } from "../type";
-import { Youon } from "../youon";
+import { Other } from "../japaneseSounds/other";
+import { Sokuon } from "../japaneseSounds/sokuon";
+import { JapaneseSound } from "../japaneseSounds/type";
+import { Youon } from "../japaneseSounds/youon";
+import { Symbols } from "../Symbols";
+
+type JapaneseSoundOrSymbols = JapaneseSound | Symbols;
 
 /**
- * ひらがなの文章を促音・拗音・その他にパースする
+ * ひらがなの文章を促音・拗音・その他または記号クラスにパースする
  */
-export const japaneseSoundsParser = (hiraganaSentence: string) => {
-  const result: JapaneseSound[] = [];
+export const soundsOrSymbolsParser = (hiraganaSentence: string) => {
+  const result: JapaneseSoundOrSymbols[] = [];
 
   for (let i = 0; i < hiraganaSentence.length; i++) {
     const targetHiragana = hiraganaSentence[i];
     const nextTargetHiragana: string | undefined = hiraganaSentence[i + 1] as
       | string
       | undefined;
+
+    if (Symbols.isSymbols(targetHiragana)) {
+      const symbols = new Symbols(targetHiragana);
+      result.push(symbols);
+      continue;
+    }
 
     if (Sokuon.isSokuon(targetHiragana)) {
       const sokuon = Sokuon.fromHiragana(targetHiragana);
@@ -43,7 +52,7 @@ export const japaneseSoundsParser = (hiraganaSentence: string) => {
     }
 
     throw new Error(
-      `japaneseSoundsParser: パースできません. hiragna: ${targetHiragana}`
+      `soundsOrSymbolsParser: パースできません. hiragna: ${targetHiragana}`
     );
   }
 

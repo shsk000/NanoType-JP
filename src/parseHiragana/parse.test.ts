@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import { parseHiragana } from "./parse";
 import { Other, Sokuon, Youon } from "../japaneseSounds";
 import { Romaji } from "../romaji/romaji";
+import { Symbols } from "../Symbols";
 
 describe("parse.test.ts", () => {
   test("Otherのみ", () => {
@@ -53,6 +54,23 @@ describe("parse.test.ts", () => {
       new Romaji(new Sokuon()),
       new Romaji([new Sokuon(), new Other("ぁ")]),
       new Romaji(new Other("ぃ")),
+    ]);
+  });
+
+  test("Symbolsあり", () => {
+    const sentence = parseHiragana("あいうえおー「＠＾－　");
+    expect(sentence).toStrictEqual([
+      new Romaji(new Other("あ")),
+      new Romaji(new Other("い")),
+      new Romaji(new Other("う")),
+      new Romaji(new Other("え")),
+      new Romaji(new Other("お")),
+      new Symbols("ー"),
+      new Symbols("「"),
+      new Symbols("＠"),
+      new Symbols("＾"),
+      new Symbols("－"),
+      new Symbols("　"),
     ]);
   });
 });

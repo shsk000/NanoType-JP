@@ -1,13 +1,14 @@
 import { describe, expect, test } from "vitest";
-import { japaneseSoundsParser } from "./japaneseSoundsParser";
-import { Sokuon } from "../sokuon";
-import { Other } from "../other";
-import { Youon } from "../youon";
+import { soundsOrSymbolsParser } from ".";
+import { Sokuon } from "../japaneseSounds/sokuon";
+import { Other } from "../japaneseSounds/other";
+import { Youon } from "../japaneseSounds/youon";
+import { Symbols } from "../Symbols/Symbols";
 
-describe("japaneseSoundsParser.test.ts", () => {
+describe("soundsOrSymbolsParser.test.ts", () => {
   describe("促音、Otherの判定", () => {
     test("っ. 正常系 促音", () => {
-      const result = japaneseSoundsParser("っ");
+      const result = soundsOrSymbolsParser("っ");
       expect(result[0]).instanceOf(Sokuon);
       expect(result[0].getHiragana()).toBe("っ");
     });
@@ -15,7 +16,7 @@ describe("japaneseSoundsParser.test.ts", () => {
     test.each(["あ", "び", "ぴ", "ぁ", "ゃ"])(
       "%s. 清音,濁音,半濁音 正常系",
       (hiragana) => {
-        const result = japaneseSoundsParser(hiragana);
+        const result = soundsOrSymbolsParser(hiragana);
         expect(result[0]).instanceOf(Other);
         expect(result[0].getHiragana()).toBe(hiragana);
       }
@@ -24,7 +25,7 @@ describe("japaneseSoundsParser.test.ts", () => {
 
   describe("拗音の判定", () => {
     test("びゃあ. 拗音 正常系", () => {
-      const result = japaneseSoundsParser("びゃあ");
+      const result = soundsOrSymbolsParser("びゃあ");
       expect(result[0]).instanceOf(Youon);
       expect(result[0].getHiragana()).toBe("びゃ");
 
@@ -33,7 +34,7 @@ describe("japaneseSoundsParser.test.ts", () => {
     });
 
     test("あぁ. 拗音 異常系", () => {
-      const result = japaneseSoundsParser("あぁ");
+      const result = soundsOrSymbolsParser("あぁ");
       expect(result[0]).instanceOf(Other);
       expect(result[0].getHiragana()).toBe("あ");
       expect(result[1]).instanceOf(Other);
@@ -41,9 +42,17 @@ describe("japaneseSoundsParser.test.ts", () => {
     });
   });
 
+  describe("記号の判定", () => {
+    test("！. 記号 正常系", () => {
+      const result = soundsOrSymbolsParser("！");
+      expect(result[0]).instanceOf(Symbols);
+      expect(result[0].getHiragana()).toBe("！");
+    });
+  });
+
   describe("複合", () => {
     test("ぱっきゃお", () => {
-      const result = japaneseSoundsParser("ぱっきゃお");
+      const result = soundsOrSymbolsParser("ぱっきゃお");
       expect(result[0]).instanceOf(Other);
       expect(result[0].getHiragana()).toBe("ぱ");
       expect(result[1]).instanceOf(Sokuon);
@@ -55,7 +64,7 @@ describe("japaneseSoundsParser.test.ts", () => {
     });
 
     test("ゔぁゔぃゔゔぁぁ", () => {
-      const result = japaneseSoundsParser("ゔぁゔぃゔゔぁぁ");
+      const result = soundsOrSymbolsParser("ゔぁゔぃゔゔぁぁ");
       expect(result[0]).instanceOf(Youon);
       expect(result[0].getHiragana()).toBe("ゔぁ");
       expect(result[1]).instanceOf(Youon);
@@ -66,6 +75,20 @@ describe("japaneseSoundsParser.test.ts", () => {
       expect(result[3].getHiragana()).toBe("ゔぁ");
       expect(result[4]).instanceOf(Other);
       expect(result[4].getHiragana()).toBe("ぁ");
+    });
+
+    test("あ！「ゔぁ￥", () => {
+      const result = soundsOrSymbolsParser("あ！「ゔぁ￥");
+      expect(result[0]).instanceOf(Other);
+      expect(result[0].getHiragana()).toBe("あ");
+      expect(result[1]).instanceOf(Symbols);
+      expect(result[1].getHiragana()).toBe("！");
+      expect(result[2]).instanceOf(Symbols);
+      expect(result[2].getHiragana()).toBe("「");
+      expect(result[3]).instanceOf(Youon);
+      expect(result[3].getHiragana()).toBe("ゔぁ");
+      expect(result[4]).instanceOf(Symbols);
+      expect(result[4].getHiragana()).toBe("￥");
     });
   });
 });

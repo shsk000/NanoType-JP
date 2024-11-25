@@ -23,7 +23,8 @@
     ".": {
       "umd": "./dist/nano-type-jp.umd.cjs",
       "import": "./dist/nano-type-jp.js",
-      "require": "./dist/nano-type-jp.cjs"
+      "require": "./dist/nano-type-jp.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [

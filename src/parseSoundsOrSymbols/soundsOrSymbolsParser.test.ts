@@ -42,8 +42,8 @@ describe("soundsOrSymbolsParser.test.ts", () => {
     });
   });
 
-  describe("特殊文字の判定", () => {
-    test("！. 特殊文字 正常系", () => {
+  describe("記号の判定", () => {
+    test("！. 記号 正常系", () => {
       const result = soundsOrSymbolsParser("！");
       expect(result[0]).instanceOf(Symbols);
       expect(result[0].getHiragana()).toBe("！");

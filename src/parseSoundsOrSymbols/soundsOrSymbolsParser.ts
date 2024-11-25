@@ -7,7 +7,7 @@ import { Symbols } from "../Symbols";
 type JapaneseSoundOrSymbols = JapaneseSound | Symbols;
 
 /**
- * ひらがなの文章を促音・拗音・その他または特殊文字クラスにパースする
+ * ひらがなの文章を促音・拗音・その他または記号クラスにパースする
  */
 export const soundsOrSymbolsParser = (hiraganaSentence: string) => {
   const result: JapaneseSoundOrSymbols[] = [];

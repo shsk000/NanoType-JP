@@ -1,15 +1,15 @@
 import { describe, expect, test } from "vitest";
-import { fullWidthToHalfWidth } from "./fullWidthToHarfWidth";
+import { Symbols } from "./Symbols";
 
-describe("fullWidthToHarfWidth", () => {
+describe("Symbols", () => {
   const testCases = [
     { input: "！", expected: "!" },
-    { input: '"', expected: '"' },
+    { input: "”", expected: '"' },
     { input: "＃", expected: "#" },
     { input: "＄", expected: "$" },
     { input: "％", expected: "%" },
     { input: "＆", expected: "&" },
-    { input: "'", expected: "'" },
+    { input: "’", expected: "'" },
     { input: "（", expected: "(" },
     { input: "）", expected: ")" },
     { input: "＝", expected: "=" },
@@ -17,7 +17,6 @@ describe("fullWidthToHarfWidth", () => {
     { input: "｜", expected: "|" },
     { input: "｛", expected: "{" },
     { input: "｝", expected: "}" },
-    { input: "'", expected: "'" },
     { input: "＊", expected: "*" },
     { input: "＋", expected: "+" },
     { input: "＿", expected: "_" },
@@ -35,20 +34,14 @@ describe("fullWidthToHarfWidth", () => {
     { input: "＠", expected: "@" },
     { input: "＾", expected: "^" },
     { input: "－", expected: "-" },
-    { input: "　", expected: "" },
+    { input: "　", expected: " " },
   ];
 
-  test.each(testCases)(
-    `converts $input to $expected`,
-    ({ input, expected }) => {
-      console.log(input, expected);
-      expect(fullWidthToHalfWidth(input)).toBe(expected);
-    }
-  );
+  test.each(testCases)("$input is Symbols", ({ input }) => {
+    expect(Symbols.isSymbols(input)).toBeTruthy();
+  });
 
-  test("converts multiple characters in a sentence", () => {
-    const input = '全角文字："＠＃＄％＆"';
-    const expected = '全角文字:"@#$%&"';
-    expect(fullWidthToHalfWidth(input)).toBe(expected);
+  test.each(testCases)("$input to $expected", ({ input, expected }) => {
+    expect(new Symbols(input).getHalfWidth()).toBe(expected);
   });
 });

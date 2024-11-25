@@ -22,7 +22,7 @@ export const fullWidthToHalfWidth = (sentence: string) => {
         case "ー":
           return "-";
         case "　":
-          return "";
+          return " ";
         default:
           return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
       }

@@ -17,6 +17,7 @@ describe("alphabetInputPattern.test.ts", () => {
         "paxtukixyao",
       ],
     ],
+    ["あいうえおー「＠＾－　", ["aiueo-[@^- ", "aiwueo-[@^- "]],
   ])("%s. 組み合わせパターンを生成している", (hiraganaSentence, expected) => {
     const romajiArr = parseHiragana(hiraganaSentence);
     const pattern = new AlphabetInputPattern(romajiArr);

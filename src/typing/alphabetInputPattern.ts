@@ -1,3 +1,4 @@
+import { TypeInputUnit } from "../parseHiragana";
 import { Romaji } from "../romaji";
 
 /**
@@ -6,19 +7,24 @@ import { Romaji } from "../romaji";
 export class AlphabetInputPattern {
   private allPatern: string[] = [];
 
-  constructor(romajiArr: Romaji[]) {
-    this.allPatern = this.createAllPattern(romajiArr);
+  constructor(typeInputUnit: TypeInputUnit) {
+    this.allPatern = this.createAllPattern(typeInputUnit);
   }
 
   public getAllPatern() {
     return this.allPatern;
   }
 
-  private createAllPattern(romajiArr: Romaji[]): string[] {
+  private createAllPattern(typeInputUnit: TypeInputUnit): string[] {
     // アルファベット入力パターンを一文字ずつ配列にまとめる。
-    const alphabetPatternFlat = romajiArr.map((romaji) => {
-      const units = romaji.getRomajiPattern().getFlatRomajiPatternUnits();
-      return units.map((unit) => unit.getAlphabet());
+    const alphabetPatternFlat = typeInputUnit.map((romajiOrSymbols) => {
+      if (romajiOrSymbols instanceof Romaji) {
+        const units = romajiOrSymbols
+          .getRomajiPattern()
+          .getFlatRomajiPatternUnits();
+        return units.map((unit) => unit.getAlphabet());
+      }
+      return [romajiOrSymbols.getHalfWidth()];
     });
 
     // [ [ 'ka', 'ca' ], [ 'ki' ], [ 'ku' ], [ 'ke' ], [ 'ko', 'co' ] ]

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { NanoTypeJp } from "./typingGame";
+import { NanoTypeJp } from "./nanoTypeJp";
 
 describe("typingGame.test.ts", () => {
   test("正解入力を行った際はresult: correct, 完了後はresult: complateを返却すること", () => {

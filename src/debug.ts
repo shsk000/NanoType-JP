@@ -1,4 +1,4 @@
-import { NanoTypeJp } from "./typing/typingGame";
+import { NanoTypeJp } from "./typing";
 
 const t = new NanoTypeJp();
 

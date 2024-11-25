@@ -1,7 +1,7 @@
 import { JapaneseSound, Other, Sokuon, Youon } from "../japaneseSounds";
 import { soundsOrSymbolsParser } from "../parseSoundsOrSymbols";
 import { Romaji } from "../romaji/romaji";
-import { Symbols } from "../Symbols";
+import { Symbols } from "../symbols";
 
 export type TypeInputUnit = Array<Romaji | Symbols>;
 

@@ -1,6 +1,6 @@
 {
   "name": "@shsk002/nano-type-jp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "repository": {
     "type": "git",
@@ -21,12 +21,17 @@
   },
   "exports": {
     ".": {
-      "umd": "./dist/index.umd.cjs",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "umd": "./dist/nano-type-jp.umd.cjs",
+      "import": "./dist/nano-type-jp.js",
+      "require": "./dist/nano-type-jp.cjs"
     }
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "japanese-typing-game",
+    "japanese",
+    "typing"
   ]
 }

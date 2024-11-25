@@ -1,3 +1,3 @@
-import { NanoTypeJp } from "./typing/typingGame";
+import { NanoTypeJp } from "./typing";
 
 export default NanoTypeJp;

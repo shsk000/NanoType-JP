@@ -278,6 +278,27 @@ export const youonConvertList: RomajiConvertList = {
     new RomajiPatternUnit("dixyo"),
   ]),
 
+  でゃ: new RomajiPattern(new RomajiPatternUnit("dha"), [
+    new RomajiPatternUnit("delya"),
+    new RomajiPatternUnit("dexya"),
+  ]),
+  でぃ: new RomajiPattern(new RomajiPatternUnit("dhi"), [
+    new RomajiPatternUnit("deli"),
+    new RomajiPatternUnit("dexi"),
+  ]),
+  でゅ: new RomajiPattern(new RomajiPatternUnit("dhu"), [
+    new RomajiPatternUnit("delyu"),
+    new RomajiPatternUnit("dexyu"),
+  ]),
+  でぇ: new RomajiPattern(new RomajiPatternUnit("dhe"), [
+    new RomajiPatternUnit("dele"),
+    new RomajiPatternUnit("dexe"),
+  ]),
+  でょ: new RomajiPattern(new RomajiPatternUnit("dho"), [
+    new RomajiPatternUnit("delyo"),
+    new RomajiPatternUnit("dexyo"),
+  ]),
+
   びゃ: new RomajiPattern(new RomajiPatternUnit("bya"), [
     new RomajiPatternUnit("bilya"),
     new RomajiPatternUnit("bixya"),

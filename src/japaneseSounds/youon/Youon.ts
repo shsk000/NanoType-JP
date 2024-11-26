@@ -69,6 +69,7 @@ export class Youon {
         case "ぎ":
         case "じ":
         case "ぢ":
+        case "で":
         case "び":
         case "ぴ":
           return true;

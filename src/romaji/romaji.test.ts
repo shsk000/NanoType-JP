@@ -141,6 +141,13 @@ describe("romaji.test.ts", () => {
         },
       ],
       [
+        "でぃ",
+        {
+          main: new RomajiPatternUnit("dhi"),
+          sub: [new RomajiPatternUnit("deli"), new RomajiPatternUnit("dexi")],
+        },
+      ],
+      [
         "びぇ",
         {
           main: new RomajiPatternUnit("bye"),

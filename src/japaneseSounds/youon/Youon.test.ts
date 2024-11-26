@@ -80,6 +80,11 @@ describe("Youon.test.ts", () => {
     ["ぴゅ"],
     ["ぴぇ"],
     ["ぴょ"],
+    ["でゃ"],
+    ["でぃ"],
+    ["でゅ"],
+    ["でぇ"],
+    ["でょ"],
   ])("fromHiragana: %s. 正常系", (hiragana) => {
     const youon = Youon.fromHiragana(hiragana);
     expect(youon).instanceOf(Youon);

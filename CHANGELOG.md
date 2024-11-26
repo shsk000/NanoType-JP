@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.5](https://github.com/shsk000/NanoType-JP/compare/v0.2.4...v0.2.5) - 2024-11-26
+- feat: update tagpr actions by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/33
+
 ## [v0.2.4](https://github.com/shsk000/NanoType-JP/compare/v0.2.3...v0.2.4) - 2024-11-26
 - feat: add tagpr by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/30
 - feat: add permission by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/31

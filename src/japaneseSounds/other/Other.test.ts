@@ -15,4 +15,8 @@ describe("Other.test.ts", () => {
       expect(Other.fromHiragana(hiragana)).instanceOf(Other);
     }
   );
+
+  test("constructor: フォーマットを満たしていない場合はErrorをThrowする", () => {
+    expect(() => new Other("っ")).toThrowError();
+  });
 });

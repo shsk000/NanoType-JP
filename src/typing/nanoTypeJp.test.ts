@@ -130,4 +130,11 @@ describe("typingGame.test.ts", () => {
       });
     });
   });
+
+  describe("エラー", () => {
+    test("入力可能なパターンがない場合はエラーを返却する", () => {
+      const game = new NanoTypeJp();
+      expect(() => game.registerNewHiragana("a")).toThrowError();
+    });
+  });
 });

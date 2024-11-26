@@ -112,4 +112,8 @@ describe("Youon.test.ts", () => {
     const isSutegana = Youon.isSutegana(hiragana);
     expect(isSutegana).toBeFalsy();
   });
+
+  test("constructor: フォーマットを満たしていない場合はErrorをThrowする", () => {
+    expect(() => new Youon("あ  ")).toThrowError();
+  });
 });

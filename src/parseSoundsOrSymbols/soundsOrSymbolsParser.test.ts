@@ -91,4 +91,11 @@ describe("soundsOrSymbolsParser.test.ts", () => {
       expect(result[4].getHiragana()).toBe("￥");
     });
   });
+
+  describe("パースできない場合", () => {
+    test("あaあ", () => {
+      const result = soundsOrSymbolsParser("あaあ");
+      expect(result).toEqual([new Other("あ"), new Other("あ")]);
+    });
+  });
 });

@@ -52,10 +52,6 @@ describe("romaji.test.ts", () => {
       expect(romaji.getRomajiPattern().getMain()).toStrictEqual(pattern.main);
       expect(romaji.getRomajiPattern().getSub()).toStrictEqual(pattern.sub);
     });
-    test("ローマ字のパターンにない場合、エラーを返却する", () => {
-      const other = new Other("t");
-      expect(() => new Romaji(other)).toThrowError();
-    });
   });
 
   describe("YouonからRomajiへの変換", () => {

@@ -3,7 +3,13 @@
  * このプログラムでは「大きい文字」、「小さい文字」どちらも合わせて一つの拗音とする
  */
 export class Youon {
-  constructor(private hiragana: string) {}
+  constructor(private hiragana: string) {
+    if (!Youon.isYouon(hiragana)) {
+      throw new Error(
+        `Youon: フォーマットを満たしていません, hiragana: ${hiragana}`
+      );
+    }
+  }
 
   public getHiragana(): string {
     return this.hiragana;
@@ -39,6 +45,8 @@ export class Youon {
   }
 
   static isYouon(hiragana: string): boolean {
+    if (hiragana.length !== 2) return false;
+
     const [first, second] = hiragana;
 
     if (
@@ -85,18 +93,6 @@ export class Youon {
   }
 
   static fromHiragana(hiragana: string): Youon {
-    if (hiragana.length !== 2) {
-      throw new Error(
-        `Youon fromHiragana: 文字数が不正です. hiragana: ${hiragana}`
-      );
-    }
-
-    if (Youon.isYouon(hiragana)) {
-      return new this(hiragana);
-    }
-
-    throw new Error(
-      `Youon fromHiragana: 対象は拗音ではありません. hiragana: ${hiragana}`
-    );
+    return new this(hiragana);
   }
 }

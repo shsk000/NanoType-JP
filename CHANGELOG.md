@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.0](https://github.com/shsk000/NanoType-JP/compare/v0.2.5...v0.3.0) - 2024-11-26
+- feat: error周りのリファクタ by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/35
+- feat: 拗音の抜け修正 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/37
+
 ## [v0.2.5](https://github.com/shsk000/NanoType-JP/compare/v0.2.4...v0.2.5) - 2024-11-26
 - feat: update tagpr actions by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/33
 

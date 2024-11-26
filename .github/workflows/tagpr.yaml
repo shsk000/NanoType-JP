@@ -1,5 +1,5 @@
 # .github/workflows/tagpr.yml
-name: tagpr
+name: Tagpr
 on:
   push:
     branches: ["main"]
@@ -11,10 +11,10 @@ jobs:
       pull-requests: write
     outputs:
       tagpr-tag: ${{ steps.run-tagpr.outputs.tag }}
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
       - uses: Songmu/tagpr@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}

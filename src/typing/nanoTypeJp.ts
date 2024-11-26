@@ -55,6 +55,12 @@ export class NanoTypeJp {
 
   public registerNewHiragana(hiragana: string): RegisterResult {
     const parsedHiragana = parseHiragana(hiragana);
+
+    if (parsedHiragana.length === 0) {
+      throw new Error(
+        `NanoTypeJp: 入力可能なパターンがありません. hiragana: ${hiragana}`
+      );
+    }
     const pattern = new AlphabetInputPattern(parsedHiragana);
     this.inputPattern = pattern.getAllPatern();
     this.inputValidator.initialize(this.inputPattern);

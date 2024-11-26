@@ -1,32 +1,24 @@
-import { Sokuon } from "../sokuon";
-import { Youon } from "../youon";
-
 // 清音,濁音,半濁音 全部まとめてOtherとする
 export class Other {
-  constructor(private hiragana: string) {}
+  constructor(private hiragana: string) {
+    if (!Other.isOther(hiragana)) {
+      throw new Error(
+        `Other: フォーマットを満たしていません, hiragana: ${hiragana}`
+      );
+    }
+  }
 
   public getHiragana(): string {
     return this.hiragana;
   }
 
   static isOther(hiragana: string): boolean {
-    const isYouon = Youon.isYouon(hiragana);
-    const isSokuon = Sokuon.isSokuon(hiragana);
-
-    if (!isYouon && !isSokuon) {
-      return true;
-    }
-
-    return false;
+    if (hiragana.length > 1) return false;
+    if (hiragana === "っ") return false;
+    return /[ぁ-ゔ]/.test(hiragana);
   }
 
   static fromHiragana(hiragana: string): Other {
-    if (Other.isOther(hiragana)) {
-      return new this(hiragana);
-    }
-
-    throw new Error(
-      `Other fromHiragana: 対象が促音または拗音です. hiragana: ${hiragana}`
-    );
+    return new this(hiragana);
   }
 }

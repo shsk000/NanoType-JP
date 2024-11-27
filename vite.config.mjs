@@ -17,6 +17,12 @@ export default defineConfig(({ mode }) => {
         entry: resolve(__dirname, "src/index.ts"),
         name: "NanoTypeJp",
         formats: ["es", "umd", "cjs"],
+        fileName: (format) => {
+          if (format === "es") return "nano-type-jp.es.js";
+          if (format === "umd") return "nano-type-jp.umd.js";
+          if (format === "cjs") return "nano-type-jp.cjs.js";
+          return "nano-type-jp.js";
+        },
       },
     },
 

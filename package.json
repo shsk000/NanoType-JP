@@ -21,9 +21,9 @@
   },
   "exports": {
     ".": {
-      "umd": "./dist/nano-type-jp.umd.cjs",
-      "import": "./dist/nano-type-jp.js",
-      "require": "./dist/nano-type-jp.cjs",
+      "umd": "./dist/nano-type-jp.umd.js",
+      "import": "./dist/nano-type-jp.es.js",
+      "require": "./dist/nano-type-jp.cjs.js",
       "types": "./dist/index.d.ts"
     }
   },

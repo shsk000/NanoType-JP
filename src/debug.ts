@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded", () => {
         break;
       case "fail":
         break;
-      case "complate":
+      case "complete":
         resetQuestionText();
     }
   });

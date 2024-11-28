@@ -18,7 +18,7 @@ describe("inputValidator.test.ts", () => {
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aaa", "aab"]);
 
     result = validator.input("b");
-    expect(result.result).toBe("complate");
+    expect(result.result).toBe("complete");
     expect(result.correctLength).toBe(3);
     expect(result.selectedAlphabetSentence).toBe("aab");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["aab"]);
@@ -28,7 +28,7 @@ describe("inputValidator.test.ts", () => {
     const validator = new InputValidator();
     validator.initialize(["a", "b", "c"]);
     let result = validator.input("a");
-    expect(result.result).toBe("complate");
+    expect(result.result).toBe("complete");
     expect(result.correctLength).toBe(1);
     expect(result.selectedAlphabetSentence).toBe("a");
     expect(validator.getAlphabetAllPattern()).toStrictEqual(["a"]);

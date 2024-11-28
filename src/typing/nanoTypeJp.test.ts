@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { NanoTypeJp } from "./nanoTypeJp";
 
 describe("typingGame.test.ts", () => {
-  test("正解入力を行った際はresult: correct, 完了後はresult: complateを返却すること", () => {
+  test("正解入力を行った際はresult: correct, 完了後はresult: completeを返却すること", () => {
     const game = new NanoTypeJp();
     game.registerNewHiragana("かきくけこ");
 
@@ -25,7 +25,7 @@ describe("typingGame.test.ts", () => {
     result = game.answerAlphabet("k");
     expect(result.result).toBe("correct");
     result = game.answerAlphabet("o");
-    expect(result.result).toBe("complate");
+    expect(result.result).toBe("complete");
   });
 
   test("patternがmain以外のものも入力できること", () => {
@@ -52,7 +52,7 @@ describe("typingGame.test.ts", () => {
     result = game.answerAlphabet("c");
     expect(result.result).toBe("correct");
     result = game.answerAlphabet("o");
-    expect(result.result).toBe("complate");
+    expect(result.result).toBe("complete");
   });
 
   test("不正解の場合はresult: failを返却すること", () => {
@@ -86,7 +86,7 @@ describe("typingGame.test.ts", () => {
       game.answerAlphabet("k");
       const result = game.answerAlphabet("a");
       expect(result).toStrictEqual({
-        result: "complate",
+        result: "complete",
         failCount: 0,
         correctCount: 2,
         completedCount: 1,
@@ -118,7 +118,7 @@ describe("typingGame.test.ts", () => {
 
       result = game.answerAlphabet("a");
       expect(result).toStrictEqual({
-        result: "complate",
+        result: "complete",
         failCount: 1,
         correctCount: 2,
         completedCount: 1,

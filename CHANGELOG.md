@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.2](https://github.com/shsk000/NanoType-JP/compare/v0.3.1...v0.3.2) - 2024-11-28
+- feat: fix typo by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/40
+
 ## [v0.3.1](https://github.com/shsk000/NanoType-JP/compare/v0.3.0...v0.3.1) - 2024-11-27
 - feat: update output name by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/38
 

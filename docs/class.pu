@@ -1,0 +1,122 @@
+@startuml
+' メインクラス
+class NanoTypeJp {
+  - inputPattern: string[]
+  - inputValidator: InputValidator
+  - failCount: number
+  - correctCount: number
+  - completedCount: number
+  - perfectStreakCount: number
+  + initialize(): void
+  + registerNewHiragana(hiragana: string): RegisterResult
+  + answerAlphabet(alphabet: string): AnswerResult
+}
+
+' 入力検証クラス
+class InputValidator {
+  - correctLength: number
+  - alphabetAllPatern: string[]
+  + initialize(alphabetAllPatern: string[]): void
+  + input(alphabet: string): InputResult
+}
+
+' 入力パターン生成クラス
+class AlphabetInputPattern {
+  - allPatern: string[]
+  + getAllPatern(): string[]
+  - createAllPattern(typeInputUnit: TypeInputUnit): string[]
+}
+
+' 日本語音声の基底クラス
+abstract class JapaneseSound {
+  + getHiragana(): string
+}
+
+' その他の音声クラス
+class Other {
+  - hiragana: string
+  + {static} isOther(hiragana: string): boolean
+  + {static} fromHiragana(hiragana: string): Other
+}
+
+' 拗音クラス
+class Youon {
+  - hiragana: string
+  + getFirstCharacterHiragana(): string
+  + getSecondCharacterHiragana(): string
+  + {static} isSutegana(hiragana: string): boolean
+  + {static} isYouon(hiragana: string): boolean
+  + {static} fromHiragana(hiragana: string): Youon
+}
+
+' 促音クラス
+class Sokuon {
+  - hiragana: string
+  + {static} isSokuon(hiragana: string): boolean
+  + {static} fromHiragana(hiragana: string): Sokuon
+}
+
+' 記号クラス
+class Symbols {
+  - symbol: string
+  + getHalfWidth(): string
+  + {static} isSymbols(symbol: string): boolean
+}
+
+' ローマ字変換クラス
+class Romaji {
+  - romajiPattern: RomajiPattern
+  + getRomajiPattern(): RomajiPattern
+  - decisionRomajiPattern(input: InputUnit): RomajiPattern
+}
+
+' ローマ字パターンクラス
+class RomajiPattern {
+  - main: RomajiPatternUnit
+  - sub: RomajiPatternUnit[]
+  + getMain(): RomajiPatternUnit
+  + getSub(): RomajiPatternUnit[]
+  + getFlatRomajiPatternUnits(): RomajiPatternUnit[]
+  + {static} createSimultaneouslySokuonInputPattern(romajiPattern: RomajiPattern): RomajiPattern
+  + {static} concat(one: RomajiPattern, two: RomajiPattern): RomajiPattern
+}
+
+' ローマ字パターンユニットクラス
+class RomajiPatternUnit {
+  - alphabet: string
+  + getAlphabet(): string
+  + {static} createSokuonDoubleInputUnit(patternUnit: RomajiPatternUnit): RomajiPatternUnit
+}
+
+' パーサー関数
+class "parseHiragana()" << (F,lightblue) >> {
+  + (hiraganaSentence: string): TypeInputUnit
+}
+
+class "soundsOrSymbolsParser()" << (F,lightblue) >> {
+  + (hiraganaSentence: string): JapaneseSoundOrSymbols[]
+}
+
+' 関連性の定義
+NanoTypeJp --> InputValidator
+NanoTypeJp --> AlphabetInputPattern
+NanoTypeJp ..> "parseHiragana()"
+"parseHiragana()" ..> "soundsOrSymbolsParser()"
+"parseHiragana()" ..> Romaji
+Romaji --> RomajiPattern
+RomajiPattern --> RomajiPatternUnit
+JapaneseSound <|-- Other
+JapaneseSound <|-- Youon
+JapaneseSound <|-- Sokuon
+"soundsOrSymbolsParser()" ..> JapaneseSound
+"soundsOrSymbolsParser()" ..> Symbols
+
+' InputValidatorの関連
+InputValidator ..> "AnswerResult"
+InputValidator ..> "InputAlphabetResult"
+
+note right of InputValidator
+  入力されたアルファベットが正しいかを
+  検証し、結果を返却するクラス
+end note
+@enduml

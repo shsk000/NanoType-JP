@@ -11,7 +11,7 @@ type InputAlphabetResult = {
 };
 
 type AnswerResult = {
-  result: "correct" | "fail" | "complate";
+  result: "correct" | "fail" | "complete";
   /** １タイプごと：入力失敗数 */
   failCount: number;
   /** １タイプごと：入力成功数 */
@@ -101,13 +101,13 @@ export class NanoTypeJp {
       };
     }
 
-    if (response.result === "complate") {
+    if (response.result === "complete") {
       this.correctCount++;
       this.completedCount++;
       this.perfectStreakCount++;
 
       return {
-        result: "complate",
+        result: "complete",
         failCount: this.failCount,
         correctCount: this.correctCount,
         completedCount: this.completedCount,

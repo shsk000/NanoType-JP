@@ -1,5 +1,6 @@
 {
   "name": "@shsk002/nano-type-jp",
+  "license": "MIT",
   "version": "0.3.2",
   "type": "module",
   "repository": {

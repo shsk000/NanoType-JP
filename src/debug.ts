@@ -13,6 +13,8 @@ window.addEventListener("DOMContentLoaded", () => {
   );
   const inputPattern =
     document.querySelector<HTMLParagraphElement>("#inputPattern");
+  const resultContent =
+    document.querySelector<HTMLParagraphElement>("#resultContent");
 
   let isRegistered = false;
 
@@ -20,7 +22,8 @@ window.addEventListener("DOMContentLoaded", () => {
     !registerHiragana ||
     !registerTextarea ||
     !registerButton ||
-    !inputPattern
+    !inputPattern ||
+    !resultContent
   ) {
     console.log(
       registerHiragana,
@@ -93,6 +96,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const answerResult = t.answerAlphabet(typeKey);
     console.log("answer result:", answerResult);
+
+    resultContent.innerHTML = JSON.stringify(answerResult);
 
     switch (answerResult.result) {
       case "correct":

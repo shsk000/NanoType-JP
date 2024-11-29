@@ -27,16 +27,22 @@
       .content-pattern {
         flex-basis: 300px;
       }
+      .register-result-content {
+        display: flex;
+      }
     </style>
   </head>
   <body>
     <div id="app"></div>
 
     <h1>出題分を「ひらがな」で入力してください</h1>
-    <form action="#" id="registerForm">
-      <textarea name="register" id="register"></textarea>
-      <button type="button">出題</button>
-    </form>
+    <div class="register-result-content">
+      <form action="#" id="registerForm">
+        <textarea name="register" id="register"></textarea>
+        <button type="button">出題</button>
+      </form>
+      <div id="resultContent"></div>
+    </div>
 
     <div class="content">
       <div class="content-hiragana">

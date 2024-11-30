@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest";
-import { RomajiPattern, RomajiPatternUnit, getConvertUnit } from ".";
+import { TypingPattern, TypingPatternUnit, getConvertUnit } from ".";
 import { Other, Sokuon } from "../japaneseSounds";
 
-describe("romajiPattern.test.ts", () => {
+describe("typingPattern.test.ts", () => {
   describe("createSimultaneouslySokuonInputPattern", () => {
     test("mainのみ: 先頭二回入力のパターンデータが作成されている", () => {
       const pattern = getConvertUnit(new Other("た"));
       const sokuonPattern =
-        RomajiPattern.createSimultaneouslySokuonInputPattern(pattern);
+        TypingPattern.createSimultaneouslySokuonInputPattern(pattern);
       expect(sokuonPattern.getMain().getAlphabet()).toBe("tta");
       expect(sokuonPattern.getSub()).toStrictEqual([]);
     });
@@ -15,7 +15,7 @@ describe("romajiPattern.test.ts", () => {
     test("subあり: 先頭二回入力のパターンデータが作成されている", () => {
       const pattern = getConvertUnit(new Other("か"));
       const sokuonPattern =
-        RomajiPattern.createSimultaneouslySokuonInputPattern(pattern);
+        TypingPattern.createSimultaneouslySokuonInputPattern(pattern);
       expect(sokuonPattern.getMain().getAlphabet()).toBe("kka");
       const sub = sokuonPattern.getSub();
       expect(sub).toHaveLength(1);
@@ -27,24 +27,24 @@ describe("romajiPattern.test.ts", () => {
     test("促音かつsubあり: 全パターンが網羅できていること", () => {
       const a = getConvertUnit(Sokuon.fromHiragana("っ") as Sokuon);
       const b = getConvertUnit(Other.fromHiragana("か") as Other);
-      const pattern = RomajiPattern.concatFieldCombinations(a, b);
+      const pattern = TypingPattern.concatFieldCombinations(a, b);
 
       expect(pattern).toStrictEqual(
-        new RomajiPattern(new RomajiPatternUnit("ltuka"), [
-          new RomajiPatternUnit("ltuca"),
-          new RomajiPatternUnit("xtuka"),
-          new RomajiPatternUnit("xtuca"),
+        new TypingPattern(new TypingPatternUnit("ltuka"), [
+          new TypingPatternUnit("ltuca"),
+          new TypingPatternUnit("xtuka"),
+          new TypingPatternUnit("xtuca"),
         ])
       );
     });
     test("促音かつsubなし: 全パターンが網羅できていること", () => {
       const a = getConvertUnit(Sokuon.fromHiragana("っ") as Sokuon);
       const b = getConvertUnit(Other.fromHiragana("さ") as Other);
-      const pattern = RomajiPattern.concatFieldCombinations(a, b);
+      const pattern = TypingPattern.concatFieldCombinations(a, b);
 
       expect(pattern).toStrictEqual(
-        new RomajiPattern(new RomajiPatternUnit("ltusa"), [
-          new RomajiPatternUnit("xtusa"),
+        new TypingPattern(new TypingPatternUnit("ltusa"), [
+          new TypingPatternUnit("xtusa"),
         ])
       );
     });
@@ -54,15 +54,15 @@ describe("romajiPattern.test.ts", () => {
     test("促音かつsubなし: 全パターンが網羅できていること", () => {
       const a = getConvertUnit(Sokuon.fromHiragana("っ") as Sokuon);
       const b = getConvertUnit(Other.fromHiragana("た") as Other);
-      const pattern1 = RomajiPattern.createSimultaneouslySokuonInputPattern(b);
-      const pattern2 = RomajiPattern.concatFieldCombinations(a, b);
+      const pattern1 = TypingPattern.createSimultaneouslySokuonInputPattern(b);
+      const pattern2 = TypingPattern.concatFieldCombinations(a, b);
 
-      const concatPattern = RomajiPattern.concat(pattern1, pattern2);
+      const concatPattern = TypingPattern.concat(pattern1, pattern2);
 
       expect(concatPattern).toStrictEqual(
-        new RomajiPattern(new RomajiPatternUnit("tta"), [
-          new RomajiPatternUnit("ltuta"),
-          new RomajiPatternUnit("xtuta"),
+        new TypingPattern(new TypingPatternUnit("tta"), [
+          new TypingPatternUnit("ltuta"),
+          new TypingPatternUnit("xtuta"),
         ])
       );
     });

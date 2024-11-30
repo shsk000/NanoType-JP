@@ -24,7 +24,7 @@ class InputValidator {
 class AlphabetInputPattern {
   - allPatern: string[]
   + getAllPatern(): string[]
-  - createAllPattern(typeInputUnit: TypeInputUnit): string[]
+  - createAllPattern(typeInputUnit: TypingUnit): string[]
 }
 
 ' 日本語音声の基底クラス
@@ -65,32 +65,32 @@ class Symbols {
 
 ' ローマ字変換クラス
 class Romaji {
-  - romajiPattern: RomajiPattern
-  + getRomajiPattern(): RomajiPattern
-  - decisionRomajiPattern(input: InputUnit): RomajiPattern
+  - typingPattern: TypingPattern
+  + getTypingPattern(): TypingPattern
+  - decisionTypingPattern(input: InputUnit): TypingPattern
 }
 
 ' ローマ字パターンクラス
-class RomajiPattern {
-  - main: RomajiPatternUnit
-  - sub: RomajiPatternUnit[]
-  + getMain(): RomajiPatternUnit
-  + getSub(): RomajiPatternUnit[]
-  + getFlatRomajiPatternUnits(): RomajiPatternUnit[]
-  + {static} createSimultaneouslySokuonInputPattern(romajiPattern: RomajiPattern): RomajiPattern
-  + {static} concat(one: RomajiPattern, two: RomajiPattern): RomajiPattern
+class TypingPattern {
+  - main: TypingPatternUnit
+  - sub: TypingPatternUnit[]
+  + getMain(): TypingPatternUnit
+  + getSub(): TypingPatternUnit[]
+  + getFlatTypingPatternUnits(): TypingPatternUnit[]
+  + {static} createSimultaneouslySokuonInputPattern(typingPattern: TypingPattern): TypingPattern
+  + {static} concat(one: TypingPattern, two: TypingPattern): TypingPattern
 }
 
 ' ローマ字パターンユニットクラス
-class RomajiPatternUnit {
+class TypingPatternUnit {
   - alphabet: string
   + getAlphabet(): string
-  + {static} createSokuonDoubleInputUnit(patternUnit: RomajiPatternUnit): RomajiPatternUnit
+  + {static} createSokuonDoubleInputUnit(patternUnit: TypingPatternUnit): TypingPatternUnit
 }
 
 ' パーサー関数
 class "parseHiragana()" << (F,lightblue) >> {
-  + (hiraganaSentence: string): TypeInputUnit
+  + (hiraganaSentence: string): TypingUnit
 }
 
 class "soundsOrSymbolsParser()" << (F,lightblue) >> {
@@ -103,8 +103,8 @@ NanoTypeJp --> AlphabetInputPattern
 NanoTypeJp ..> "parseHiragana()"
 "parseHiragana()" ..> "soundsOrSymbolsParser()"
 "parseHiragana()" ..> Romaji
-Romaji --> RomajiPattern
-RomajiPattern --> RomajiPatternUnit
+Romaji --> TypingPattern
+TypingPattern --> TypingPatternUnit
 JapaneseSound <|-- Other
 JapaneseSound <|-- Youon
 JapaneseSound <|-- Sokuon

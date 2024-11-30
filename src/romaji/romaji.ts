@@ -1,5 +1,5 @@
 import { Other, Sokuon, Youon, JapaneseSound } from "../japaneseSounds";
-import { getConvertUnit, RomajiPattern } from "../romajiPattern";
+import { getConvertUnit, TypingPattern } from "../typingPattern";
 
 // １入力のパターン情報
 // Sokuon, Other:「っか」（kka）などのパターン
@@ -12,17 +12,17 @@ type InputUnit = JapaneseSound | [Sokuon, Other] | [Sokuon, Youon];
  */
 export class Romaji {
   /** ローマ字タイプ入力のパターンデータ */
-  private romajiPattern: RomajiPattern;
+  private typingPattern: TypingPattern;
 
   constructor(inputUnit: InputUnit) {
-    this.romajiPattern = this.decisionRomajiPattern(inputUnit);
+    this.typingPattern = this.decisionTypingPattern(inputUnit);
   }
 
-  public getRomajiPattern(): RomajiPattern {
-    return this.romajiPattern;
+  public getTypingPattern(): TypingPattern {
+    return this.typingPattern;
   }
 
-  private decisionRomajiPattern(input: InputUnit): RomajiPattern {
+  private decisionTypingPattern(input: InputUnit): TypingPattern {
     if (
       input instanceof Other ||
       input instanceof Youon ||
@@ -38,32 +38,32 @@ export class Romaji {
       // 促音+その他または促音+拗音のパターン
       // 入力の仕様としては一緒だったのでまとめてます
       if (secondSound instanceof Other || secondSound instanceof Youon) {
-        const sokuonRomajiPattern = getConvertUnit(firstSound);
-        const otherOrYouonRomajiPattern = getConvertUnit(secondSound);
+        const sokuonTypingPattern = getConvertUnit(firstSound);
+        const otherOrYouonTypingPattern = getConvertUnit(secondSound);
         // 促音とその他または拗音を一文字ずつ入力した際のパターン情報
-        const singleInputCombinations = RomajiPattern.concatFieldCombinations(
-          sokuonRomajiPattern,
-          otherOrYouonRomajiPattern
+        const singleInputCombinations = TypingPattern.concatFieldCombinations(
+          sokuonTypingPattern,
+          otherOrYouonTypingPattern
         );
         // 促音とその他または拗音を同時に入力した際のパターン情報
         const simultaneouslyInputCombinations =
-          RomajiPattern.createSimultaneouslySokuonInputPattern(
-            otherOrYouonRomajiPattern
+          TypingPattern.createSimultaneouslySokuonInputPattern(
+            otherOrYouonTypingPattern
           );
-        return RomajiPattern.concat(
+        return TypingPattern.concat(
           simultaneouslyInputCombinations,
           singleInputCombinations
         );
       }
 
       throw new Error(
-        "Romaji decisionRomajiPattern: 想定される入力ではありません"
+        "Romaji decisionTypingPattern: 想定される入力ではありません"
       );
     }
 
     console.error(input);
     throw new Error(
-      `Romaji decisionRomajiPattern: 入力値が不正でRomajiを作成できませんでした.`
+      `Romaji decisionTypingPattern: 入力値が不正でRomajiを作成できませんでした.`
     );
   }
 }

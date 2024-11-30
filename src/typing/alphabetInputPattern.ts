@@ -1,4 +1,4 @@
-import { TypeInputUnit } from "../parseHiragana";
+import { TypingUnit } from "../parseHiragana";
 import { Romaji } from "../romaji";
 
 /**
@@ -7,7 +7,7 @@ import { Romaji } from "../romaji";
 export class AlphabetInputPattern {
   private allPatern: string[] = [];
 
-  constructor(typeInputUnit: TypeInputUnit) {
+  constructor(typeInputUnit: TypingUnit) {
     this.allPatern = this.createAllPattern(typeInputUnit);
   }
 
@@ -15,13 +15,13 @@ export class AlphabetInputPattern {
     return this.allPatern;
   }
 
-  private createAllPattern(typeInputUnit: TypeInputUnit): string[] {
+  private createAllPattern(typeInputUnit: TypingUnit): string[] {
     // アルファベット入力パターンを一文字ずつ配列にまとめる。
     const alphabetPatternFlat = typeInputUnit.map((romajiOrSymbols) => {
       if (romajiOrSymbols instanceof Romaji) {
         const units = romajiOrSymbols
-          .getRomajiPattern()
-          .getFlatRomajiPatternUnits();
+          .getTypingPattern()
+          .getFlatTypingPatternUnits();
         return units.map((unit) => unit.getAlphabet());
       }
       return [romajiOrSymbols.getHalfWidth()];

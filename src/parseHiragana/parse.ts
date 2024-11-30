@@ -3,15 +3,15 @@ import { soundsOrSymbolsParser } from "../parseSoundsOrSymbols";
 import { Romaji } from "../romaji/romaji";
 import { Symbols } from "../symbols";
 
-export type TypeInputUnit = Array<Romaji | Symbols>;
+export type TypingUnit = Array<Romaji | Symbols>;
 
 /**
  * ひらがなの文章から入力情報を作成する
  */
-export const parseHiragana = (hiraganaSentence: string): TypeInputUnit => {
+export const parseHiragana = (hiraganaSentence: string): TypingUnit => {
   const soundsOrSymbols = soundsOrSymbolsParser(hiraganaSentence);
 
-  const parsedHiragana: TypeInputUnit = [];
+  const parsedHiragana: TypingUnit = [];
 
   for (let i = 0; i < soundsOrSymbols.length; i++) {
     const target = soundsOrSymbols[i];

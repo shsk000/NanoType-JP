@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { parseHiragana } from "./parse";
 import { Other, Sokuon, Youon } from "../japaneseSounds";
-import { Romaji } from "../romaji/romaji";
-import { Symbols } from "../symbols";
+import { Romaji } from "../character/romaji/romaji";
+import { Symbols } from "../character/symbols";
 
 describe("parse.test.ts", () => {
   test("Otherのみ", () => {

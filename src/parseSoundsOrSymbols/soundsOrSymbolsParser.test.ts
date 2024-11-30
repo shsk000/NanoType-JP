@@ -3,7 +3,7 @@ import { soundsOrSymbolsParser } from ".";
 import { Sokuon } from "../japaneseSounds/sokuon";
 import { Other } from "../japaneseSounds/other";
 import { Youon } from "../japaneseSounds/youon";
-import { Symbols } from "../symbols/Symbols";
+import { Symbols } from "../character/symbols/Symbols";
 
 describe("soundsOrSymbolsParser.test.ts", () => {
   describe("促音、Otherの判定", () => {

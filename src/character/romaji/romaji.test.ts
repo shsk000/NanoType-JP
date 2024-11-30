@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { Other, Youon, Sokuon } from "../japaneseSounds";
+import { Other, Youon, Sokuon } from "../../japaneseSounds";
 import { Romaji } from ".";
 import {
   TypingPattern,
   TypingPatternUnit,
-} from "../typingPattern/typingPattern";
+} from "../../typingPattern/typingPattern";
 
 describe("romaji.test.ts", () => {
   describe("OtherからRomajiへの変換", () => {

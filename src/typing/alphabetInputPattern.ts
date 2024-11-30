@@ -1,5 +1,5 @@
 import { TypingUnit } from "../parseHiragana";
-import { Romaji } from "../romaji";
+import { Romaji } from "../character/romaji";
 
 /**
  * Romaji[]から全通りのアルファベット入力パターンを作成する

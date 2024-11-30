@@ -1,9 +1,10 @@
 import { JapaneseSound, Other, Sokuon, Youon } from "../japaneseSounds";
 import { soundsOrSymbolsParser } from "../parseSoundsOrSymbols";
-import { Romaji } from "../romaji/romaji";
-import { Symbols } from "../symbols";
+import { Romaji } from "../character/romaji/romaji";
+import { Symbols } from "../character/symbols";
+import { Character } from "../character/interface";
 
-export type TypingUnit = Array<Romaji | Symbols>;
+export type TypingUnit = Array<Character>;
 
 /**
  * ひらがなの文章から入力情報を作成する

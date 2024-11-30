@@ -1,5 +1,6 @@
-import { Other, Sokuon, Youon, JapaneseSound } from "../japaneseSounds";
-import { getConvertUnit, TypingPattern } from "../typingPattern";
+import { Other, Sokuon, Youon, JapaneseSound } from "../../japaneseSounds";
+import { getConvertUnit, TypingPattern } from "../../typingPattern";
+import { Character } from "../interface";
 
 // １入力のパターン情報
 // Sokuon, Other:「っか」（kka）などのパターン
@@ -10,9 +11,9 @@ type InputUnit = JapaneseSound | [Sokuon, Other] | [Sokuon, Youon];
  * ひらがなをローマ字に変換するクラス
  * タイピング時、変換の単位のため「っきゃ」(kkya)で１インスタンスとなる
  */
-export class Romaji {
+export class Romaji implements Character {
   /** ローマ字タイプ入力のパターンデータ */
-  private typingPattern: TypingPattern;
+  public typingPattern: TypingPattern;
 
   constructor(inputUnit: InputUnit) {
     this.typingPattern = this.decisionTypingPattern(inputUnit);

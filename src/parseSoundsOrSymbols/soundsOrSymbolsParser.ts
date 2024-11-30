@@ -2,7 +2,7 @@ import { Other } from "../japaneseSounds/other";
 import { Sokuon } from "../japaneseSounds/sokuon";
 import { JapaneseSound } from "../japaneseSounds/type";
 import { Youon } from "../japaneseSounds/youon";
-import { Symbols } from "../symbols";
+import { Symbols } from "../character/symbols";
 
 type JapaneseSoundOrSymbols = JapaneseSound | Symbols;
 

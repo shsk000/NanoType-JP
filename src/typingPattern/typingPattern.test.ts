@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { TypingPattern, TypingPatternUnit, getConvertUnit } from ".";
-import { Other, Sokuon } from "../japaneseSounds";
+import { Other, Sokuon, Youon } from "../japaneseSounds";
 
 describe("typingPattern.test.ts", () => {
   describe("createSimultaneouslySokuonInputPattern", () => {
-    test("mainのみ: 先頭二回入力のパターンデータが作成されている", () => {
+    test("Other mainのみ: 先頭二回入力のパターンデータが作成されている", () => {
       const pattern = getConvertUnit(new Other("た"));
       const sokuonPattern =
         TypingPattern.createSimultaneouslySokuonInputPattern(pattern);
@@ -12,7 +12,7 @@ describe("typingPattern.test.ts", () => {
       expect(sokuonPattern.getSub()).toStrictEqual([]);
     });
 
-    test("subあり: 先頭二回入力のパターンデータが作成されている", () => {
+    test("Other subあり: 先頭二回入力のパターンデータが作成されている", () => {
       const pattern = getConvertUnit(new Other("か"));
       const sokuonPattern =
         TypingPattern.createSimultaneouslySokuonInputPattern(pattern);

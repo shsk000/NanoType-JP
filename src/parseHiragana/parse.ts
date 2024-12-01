@@ -4,15 +4,15 @@ import { Romaji } from "../character/romaji/romaji";
 import { Symbols } from "../character/symbols";
 import { Character } from "../character/interface";
 
-export type TypingUnit = Array<Character>;
+export type TypingUnits = Array<Character>;
 
 /**
  * ひらがなの文章から入力情報を作成する
  */
-export const parseHiragana = (hiraganaSentence: string): TypingUnit => {
+export const parseHiragana = (hiraganaSentence: string): TypingUnits => {
   const soundsOrSymbols = soundsOrSymbolsParser(hiraganaSentence);
 
-  const parsedHiragana: TypingUnit = [];
+  const parsedHiragana: TypingUnits = [];
 
   for (let i = 0; i < soundsOrSymbols.length; i++) {
     const target = soundsOrSymbols[i];

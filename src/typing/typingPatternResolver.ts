@@ -25,7 +25,7 @@ export class TypingPatternResolver {
     this.flatPattern = pattern.getFlatTypingPatternUnits();
   }
 
-  public getFlatPatter() {
+  public getFlatPattern() {
     return this.flatPattern;
   }
 

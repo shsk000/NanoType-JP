@@ -3,11 +3,12 @@ import {
   otherConvertList,
   TypingPattern,
   TypingPatternUnit,
+  youonConvertList,
 } from "../typingPattern";
 import { TypingPatternResolver } from "./typingPatternResolver";
 
 describe("TypingPatternResolver", () => {
-  describe("input", () => {
+  describe("Other", () => {
     test("正しい入力の場合、correctを返す", () => {
       const resolver = new TypingPatternResolver(otherConvertList["し"]);
       const result = resolver.input("s");
@@ -80,6 +81,54 @@ describe("TypingPatternResolver", () => {
       expect(result4).toEqual({
         result: "complete",
         filteredUnit: [new TypingPatternUnit("shi")],
+      });
+    });
+  });
+
+  describe("Youon", () => {
+    test("拗音を正しく入力できる", () => {
+      const resolver = new TypingPatternResolver(youonConvertList["きゃ"]);
+      expect(resolver.input("k")).toEqual({
+        result: "correct",
+        filteredUnit: [
+          new TypingPatternUnit("kya"),
+          new TypingPatternUnit("kilya"),
+          new TypingPatternUnit("kixya"),
+        ],
+        remainedAlphabet: "ya",
+        completedInputAlphabet: "k",
+      });
+      expect(resolver.input("i")).toEqual({
+        result: "correct",
+        filteredUnit: [
+          new TypingPatternUnit("kilya"),
+          new TypingPatternUnit("kixya"),
+        ],
+        remainedAlphabet: "lya",
+        completedInputAlphabet: "ki",
+      });
+      expect(resolver.input("t")).toEqual({
+        result: "fail",
+        filteredUnit: [
+          new TypingPatternUnit("kilya"),
+          new TypingPatternUnit("kixya"),
+        ],
+      });
+      expect(resolver.input("l")).toEqual({
+        result: "correct",
+        filteredUnit: [new TypingPatternUnit("kilya")],
+        completedInputAlphabet: "kil",
+        remainedAlphabet: "ya",
+      });
+      expect(resolver.input("y")).toEqual({
+        result: "correct",
+        filteredUnit: [new TypingPatternUnit("kilya")],
+        completedInputAlphabet: "kily",
+        remainedAlphabet: "a",
+      });
+      expect(resolver.input("a")).toEqual({
+        result: "complete",
+        filteredUnit: [new TypingPatternUnit("kilya")],
       });
     });
   });

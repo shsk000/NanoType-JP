@@ -57,7 +57,7 @@ export class TypingPattern {
       .getSub()
       .map((unit) => {
         // NOTE: xやlは１文字ずつ入力するパターンのため返却値から除外する
-        if (/[lx]/.test(unit.getAlphabet())) return undefined;
+        // if (/[lx]/.test(unit.getAlphabet())) return undefined;
         return TypingPatternUnit.createSokuonDoubleInputUnit(unit);
       })
       .filter((unit) => !!unit);

@@ -226,6 +226,8 @@ describe("romaji.test.ts", () => {
       [
         ["っ", "きゃ"],
         new TypingPattern(new TypingPatternUnit("kkya"), [
+          new TypingPatternUnit("kkilya"),
+          new TypingPatternUnit("kkixya"),
           new TypingPatternUnit("ltukya"),
           new TypingPatternUnit("ltukilya"),
           new TypingPatternUnit("ltukixya"),
@@ -237,7 +239,11 @@ describe("romaji.test.ts", () => {
       [
         ["っ", "じゃ"],
         new TypingPattern(new TypingPatternUnit("zzya"), [
+          new TypingPatternUnit("zzilya"),
+          new TypingPatternUnit("zzixya"),
           new TypingPatternUnit("jja"),
+          new TypingPatternUnit("jjilya"),
+          new TypingPatternUnit("jjixya"),
           new TypingPatternUnit("ltuzya"),
           new TypingPatternUnit("ltuzilya"),
           new TypingPatternUnit("ltuzixya"),

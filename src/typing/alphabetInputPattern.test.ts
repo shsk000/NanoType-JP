@@ -9,6 +9,8 @@ describe("alphabetInputPattern.test.ts", () => {
       "ぱっきゃお",
       [
         "pakkyao",
+        "pakkilyao",
+        "pakkixyao",
         "paltukyao",
         "paltukilyao",
         "paltukixyao",

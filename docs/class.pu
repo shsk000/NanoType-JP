@@ -24,7 +24,7 @@ class InputValidator {
 class AlphabetInputPattern {
   - allPatern: string[]
   + getAllPatern(): string[]
-  - createAllPattern(typeInputUnit: TypingUnit): string[]
+  - createAllPattern(typeInputUnit: TypingUnits): string[]
 }
 
 ' 日本語音声の基底クラス
@@ -90,7 +90,7 @@ class TypingPatternUnit {
 
 ' パーサー関数
 class "parseHiragana()" << (F,lightblue) >> {
-  + (hiraganaSentence: string): TypingUnit
+  + (hiraganaSentence: string): TypingUnits
 }
 
 class "soundsOrSymbolsParser()" << (F,lightblue) >> {

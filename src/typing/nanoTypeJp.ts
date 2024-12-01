@@ -1,6 +1,6 @@
 import { parseHiragana } from "../parseHiragana/parse";
-import { AlphabetInputPattern } from "./alphabetInputPattern";
-import { InputValidator } from "./inputValidator";
+import { RealTimeInputValidator } from "./realTimeInputValidator";
+import { TypingPatternResolver } from "./typingPatternResolver";
 
 /** タイプしたアルファベットの情報 */
 type InputAlphabetResult = {
@@ -25,13 +25,12 @@ type AnswerResult = {
 };
 
 type RegisterResult = {
-  inputPattern: string[];
   inputAlphabet: InputAlphabetResult;
+  inputPattern: TypingPatternResolver[];
 };
 
 export class NanoTypeJp {
-  private inputPattern: string[] = [];
-  private inputValidator: InputValidator;
+  private inputValidator: RealTimeInputValidator;
 
   /** １タイプごと：入力失敗数 */
   private failCount: number = 0;
@@ -43,7 +42,7 @@ export class NanoTypeJp {
   private perfectStreakCount: number = 0;
 
   constructor() {
-    this.inputValidator = new InputValidator();
+    this.inputValidator = new RealTimeInputValidator();
   }
 
   public initialize() {
@@ -61,24 +60,18 @@ export class NanoTypeJp {
         `NanoTypeJp: 入力可能なパターンがありません. hiragana: ${hiragana}`
       );
     }
-    const pattern = new AlphabetInputPattern(parsedHiragana);
-    this.inputPattern = pattern.getAllPatern();
-    this.inputValidator.initialize(this.inputPattern);
+    const alphabetSentece = this.inputValidator.initialize(parsedHiragana);
 
     return {
       inputAlphabet: {
-        remainedAlphabet: pattern.getAllPatern()[0],
+        remainedAlphabet: alphabetSentece,
         completedInputAlphabet: "",
       },
-      inputPattern: this.inputPattern,
+      inputPattern: this.inputValidator.getTypingPatternResolver(),
     };
   }
 
   public answerAlphabet(alphabet: string): AnswerResult {
-    if (this.inputPattern.length === 0) {
-      throw new Error("typingGame: 出題していません");
-    }
-
     const response = this.inputValidator.input(alphabet);
 
     if (response.result === "correct") {

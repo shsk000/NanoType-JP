@@ -62,6 +62,20 @@ describe("typingGame.test.ts", () => {
     expect(result.result).toBe("fail");
   });
 
+  test("連続で出題、回答ができること", () => {
+    const game = new NanoTypeJp();
+    game.registerNewHiragana("あいう");
+    game.answerAlphabet("a");
+    game.answerAlphabet("i");
+    const result = game.answerAlphabet("u");
+    expect(result.result).toBe("complete");
+
+    game.registerNewHiragana("えお");
+    game.answerAlphabet("e");
+    const result2 = game.answerAlphabet("o");
+    expect(result2.result).toBe("complete");
+  });
+
   describe("正解・失敗数のCount", () => {
     test("成功するとcorrectCountがカウントアップされる", () => {
       const game = new NanoTypeJp();

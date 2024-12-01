@@ -24,26 +24,36 @@ export const youonConvertList: RomajiConvertList = {
 
   しゃ: new TypingPattern(new TypingPatternUnit("sya"), [
     new TypingPatternUnit("sha"),
+    new TypingPatternUnit("silya"),
+    new TypingPatternUnit("sixya"),
     new TypingPatternUnit("shilya"),
     new TypingPatternUnit("shixya"),
   ]),
   しぃ: new TypingPattern(new TypingPatternUnit("syi"), [
     new TypingPatternUnit("shi"),
+    new TypingPatternUnit("sili"),
+    new TypingPatternUnit("sixi"),
     new TypingPatternUnit("shili"),
     new TypingPatternUnit("shixi"),
   ]),
   しゅ: new TypingPattern(new TypingPatternUnit("syu"), [
     new TypingPatternUnit("shu"),
+    new TypingPatternUnit("silyu"),
+    new TypingPatternUnit("sixyu"),
     new TypingPatternUnit("shilyu"),
     new TypingPatternUnit("shixyu"),
   ]),
   しぇ: new TypingPattern(new TypingPatternUnit("sye"), [
     new TypingPatternUnit("she"),
+    new TypingPatternUnit("sile"),
+    new TypingPatternUnit("sixe"),
     new TypingPatternUnit("shile"),
     new TypingPatternUnit("shixe"),
   ]),
   しょ: new TypingPattern(new TypingPatternUnit("syo"), [
     new TypingPatternUnit("sho"),
+    new TypingPatternUnit("silyo"),
+    new TypingPatternUnit("sixyo"),
     new TypingPatternUnit("shilyo"),
     new TypingPatternUnit("shixyo"),
   ]),

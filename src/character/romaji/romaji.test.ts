@@ -69,6 +69,8 @@ describe("romaji.test.ts", () => {
           main: new TypingPatternUnit("syi"),
           sub: [
             new TypingPatternUnit("shi"),
+            new TypingPatternUnit("sili"),
+            new TypingPatternUnit("sixi"),
             new TypingPatternUnit("shili"),
             new TypingPatternUnit("shixi"),
           ],

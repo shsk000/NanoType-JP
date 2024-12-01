@@ -23,6 +23,8 @@
       }
       .content-hiragana {
         flex: 1;
+        word-wrap: break-word;
+        word-break: break-all;
       }
       .content-pattern {
         flex-basis: 300px;
@@ -51,7 +53,7 @@
       </div>
       <div class="content-pattern">
         入力パターン情報
-        <p id="inputPattern"></p>
+        <pre id="inputPattern"></pre>
       </div>
     </div>
 

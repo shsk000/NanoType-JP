@@ -60,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
     fragment.appendChild(completedTextElement);
     fragment.appendChild(remainedTextElement);
 
-    registerHiragana.appendChild(fragment);
+    registerHiragana.prepend(fragment);
   };
 
   registerButton.addEventListener("click", () => {
@@ -78,7 +78,11 @@ window.addEventListener("DOMContentLoaded", () => {
           remained: registerResult.inputAlphabet.remainedAlphabet,
         });
 
-        inputPattern.innerHTML = registerResult.inputPattern.join("<br />");
+        let pattern = "";
+        registerResult.inputPattern.forEach((p) => {
+          pattern = pattern + JSON.stringify(p, null, 4) + "<br />";
+        });
+        inputPattern.innerHTML = pattern;
 
         isRegistered = true;
       } catch (e) {

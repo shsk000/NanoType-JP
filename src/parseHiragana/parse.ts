@@ -1,17 +1,18 @@
 import { JapaneseSound, Other, Sokuon, Youon } from "../japaneseSounds";
 import { soundsOrSymbolsParser } from "../parseSoundsOrSymbols";
-import { Romaji } from "../romaji/romaji";
-import { Symbols } from "../symbols";
+import { Romaji } from "../character/romaji/romaji";
+import { Symbols } from "../character/symbols";
+import { Character } from "../character/interface";
 
-export type TypeInputUnit = Array<Romaji | Symbols>;
+export type TypingUnits = Array<Character>;
 
 /**
  * ひらがなの文章から入力情報を作成する
  */
-export const parseHiragana = (hiraganaSentence: string): TypeInputUnit => {
+export const parseHiragana = (hiraganaSentence: string): TypingUnits => {
   const soundsOrSymbols = soundsOrSymbolsParser(hiraganaSentence);
 
-  const parsedHiragana: TypeInputUnit = [];
+  const parsedHiragana: TypingUnits = [];
 
   for (let i = 0; i < soundsOrSymbols.length; i++) {
     const target = soundsOrSymbols[i];

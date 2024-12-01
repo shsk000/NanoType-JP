@@ -3,13 +3,13 @@ import {
   otherConvertList,
   sokuonConvertList,
   youonConvertList,
-  RomajiPattern,
+  TypingPattern,
 } from ".";
 
 /**
  * 拗音、促音、その他のデータからタイピング情報を取得する
  */
-export const getConvertUnit = (sound: JapaneseSound): RomajiPattern => {
+export const getConvertUnit = (sound: JapaneseSound): TypingPattern => {
   if (sound instanceof Other) {
     const convertUnit = otherConvertList[sound.getHiragana()];
     if (!convertUnit)

@@ -1,122 +1,110 @@
 @startuml
-' メインクラス
+' インターフェース
+interface Character {
+  getTypingPattern(): TypingPattern
+}
+
+' 基本クラス
 class NanoTypeJp {
-  - inputPattern: string[]
-  - inputValidator: InputValidator
-  - failCount: number
-  - correctCount: number
-  - completedCount: number
-  - perfectStreakCount: number
-  + initialize(): void
-  + registerNewHiragana(hiragana: string): RegisterResult
-  + answerAlphabet(alphabet: string): AnswerResult
+  -validator: RealTimeInputValidator
+  +registerNewHiragana(hiragana: string): void
+  +answerAlphabet(alphabet: string): InputResult
 }
 
-' 入力検証クラス
-class InputValidator {
-  - correctLength: number
-  - alphabetAllPatern: string[]
-  + initialize(alphabetAllPatern: string[]): void
-  + input(alphabet: string): InputResult
+class RealTimeInputValidator {
+  -typingPatternResolver: TypingPatternResolver
+  -typingUnits: TypingUnits
+  +initialize(typingUnits: TypingUnits): void
+  +input(alphabet: string): InputResult
 }
 
-' 入力パターン生成クラス
-class AlphabetInputPattern {
-  - allPatern: string[]
-  + getAllPatern(): string[]
-  - createAllPattern(typeInputUnit: TypeInputUnit): string[]
+class TypingPatternResolver {
+  -flatPattern: TypingPatternUnit[]
+  -alphabetInputNumber: number
+  +input(alphabet: string): InputResult
+  +getFlatPattern(): TypingPatternUnit[]
 }
 
-' 日本語音声の基底クラス
+class TypingPattern {
+  -main: TypingPatternUnit
+  -sub: TypingPatternUnit[]
+  +getMain(): TypingPatternUnit
+  +getSub(): TypingPatternUnit[]
+  +getFlatTypingPatternUnits(): TypingPatternUnit[]
+  {static} +createSimultaneouslySokuonInputPattern(pattern: TypingPattern): TypingPattern
+  {static} +concat(one: TypingPattern, two: TypingPattern): TypingPattern
+  {static} +concatFieldCombinations(one: TypingPattern, two: TypingPattern): TypingPattern
+}
+
+class TypingPatternUnit {
+  -alphabet: string
+  +getAlphabet(): string
+  {static} +createSokuonDoubleInputUnit(unit: TypingPatternUnit): TypingPatternUnit
+}
+
+' 日本語音声関連クラス
 abstract class JapaneseSound {
-  + getHiragana(): string
+  +getHiragana(): string
 }
 
-' その他の音声クラス
 class Other {
-  - hiragana: string
-  + {static} isOther(hiragana: string): boolean
-  + {static} fromHiragana(hiragana: string): Other
+  -hiragana: string
+  {static} +fromHiragana(hiragana: string): Other
+  {static} +isOther(hiragana: string): boolean
 }
 
-' 拗音クラス
-class Youon {
-  - hiragana: string
-  + getFirstCharacterHiragana(): string
-  + getSecondCharacterHiragana(): string
-  + {static} isSutegana(hiragana: string): boolean
-  + {static} isYouon(hiragana: string): boolean
-  + {static} fromHiragana(hiragana: string): Youon
-}
-
-' 促音クラス
 class Sokuon {
-  - hiragana: string
-  + {static} isSokuon(hiragana: string): boolean
-  + {static} fromHiragana(hiragana: string): Sokuon
+  -hiragana: string
+  {static} +fromHiragana(hiragana: string): Sokuon
+  {static} +isSokuon(hiragana: string): boolean
 }
 
-' 記号クラス
-class Symbols {
-  - symbol: string
-  + getHalfWidth(): string
-  + {static} isSymbols(symbol: string): boolean
+class Youon {
+  -hiragana: string
+  +getFirstCharacterHiragana(): string
+  +getSecondCharacterHiragana(): string
+  {static} +fromHiragana(hiragana: string): Youon
+  {static} +isYouon(hiragana: string): boolean
+  {static} +isSutegana(hiragana: string): boolean
 }
 
-' ローマ字変換クラス
+' 文字関連クラス
 class Romaji {
-  - romajiPattern: RomajiPattern
-  + getRomajiPattern(): RomajiPattern
-  - decisionRomajiPattern(input: InputUnit): RomajiPattern
+  -typingPattern: TypingPattern
+  -decisionTypingPattern(input: InputUnit): TypingPattern
 }
 
-' ローマ字パターンクラス
-class RomajiPattern {
-  - main: RomajiPatternUnit
-  - sub: RomajiPatternUnit[]
-  + getMain(): RomajiPatternUnit
-  + getSub(): RomajiPatternUnit[]
-  + getFlatRomajiPatternUnits(): RomajiPatternUnit[]
-  + {static} createSimultaneouslySokuonInputPattern(romajiPattern: RomajiPattern): RomajiPattern
-  + {static} concat(one: RomajiPattern, two: RomajiPattern): RomajiPattern
+class Symbols {
+  -symbol: string
+  {static} +isSymbols(symbol: string): boolean
 }
 
-' ローマ字パターンユニットクラス
-class RomajiPatternUnit {
-  - alphabet: string
-  + getAlphabet(): string
-  + {static} createSokuonDoubleInputUnit(patternUnit: RomajiPatternUnit): RomajiPatternUnit
+' パース関連関数
+class "parseHiragana()" as ParseHiragana << (F,orchid) function >> {
+  +parseHiragana(hiraganaSentence: string): TypingUnits
 }
 
-' パーサー関数
-class "parseHiragana()" << (F,lightblue) >> {
-  + (hiraganaSentence: string): TypeInputUnit
+class "soundsOrSymbolsParser()" as SoundsParser << (F,orchid) function >> {
+  +soundsOrSymbolsParser(hiraganaSentence: string): JapaneseSoundOrSymbols[]
 }
 
-class "soundsOrSymbolsParser()" << (F,lightblue) >> {
-  + (hiraganaSentence: string): JapaneseSoundOrSymbols[]
-}
+' 関係性
+Character <|.. Romaji
+Character <|.. Symbols
 
-' 関連性の定義
-NanoTypeJp --> InputValidator
-NanoTypeJp --> AlphabetInputPattern
-NanoTypeJp ..> "parseHiragana()"
-"parseHiragana()" ..> "soundsOrSymbolsParser()"
-"parseHiragana()" ..> Romaji
-Romaji --> RomajiPattern
-RomajiPattern --> RomajiPatternUnit
 JapaneseSound <|-- Other
-JapaneseSound <|-- Youon
 JapaneseSound <|-- Sokuon
-"soundsOrSymbolsParser()" ..> JapaneseSound
-"soundsOrSymbolsParser()" ..> Symbols
+JapaneseSound <|-- Youon
 
-' InputValidatorの関連
-InputValidator ..> "AnswerResult"
-InputValidator ..> "InputAlphabetResult"
+NanoTypeJp --> RealTimeInputValidator
+RealTimeInputValidator --> TypingPatternResolver
+TypingPatternResolver --> TypingPattern
+TypingPattern --> TypingPatternUnit
 
-note right of InputValidator
-  入力されたアルファベットが正しいかを
-  検証し、結果を返却するクラス
-end note
+Romaji --> TypingPattern
+
+ParseHiragana ..> Romaji
+ParseHiragana ..> SoundsParser
+SoundsParser ..> JapaneseSound
+SoundsParser ..> Symbols
 @enduml

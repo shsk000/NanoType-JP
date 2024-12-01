@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.0](https://github.com/shsk000/NanoType-JP/compare/v0.4.1...v0.5.0) - 2024-12-01
+- Feature/realtime input by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/46
+- feat: update class file by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/48
+
 ## [v0.4.1](https://github.com/shsk000/NanoType-JP/compare/v0.4.0...v0.4.1) - 2024-11-29
 - feat: update debug tools by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/44
 

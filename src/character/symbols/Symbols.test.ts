@@ -44,4 +44,12 @@ describe("Symbols", () => {
   test.each(testCases)("$input to $expected", ({ input, expected }) => {
     expect(new Symbols(input).getHalfWidth()).toBe(expected);
   });
+
+  test.each(testCases)(
+    "$input symbols's main data is $expected",
+    ({ input, expected }) => {
+      const pattern = new Symbols(input).getTypingPattern();
+      expect(pattern.getMain().getAlphabet()).toBe(expected);
+    }
+  );
 });

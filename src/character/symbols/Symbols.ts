@@ -15,7 +15,9 @@ export class Symbols implements Character {
       throw new Error("Invalid Symbols character");
     }
 
-    this.typingPattern = new TypingPattern(new TypingPatternUnit(symbolString));
+    this.typingPattern = new TypingPattern(
+      new TypingPatternUnit(this.getHalfWidth())
+    );
   }
 
   public getTypingPattern(): TypingPattern {

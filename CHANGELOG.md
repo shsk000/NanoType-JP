@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.6.0](https://github.com/shsk000/NanoType-JP/compare/v0.5.0...v0.6.0) - 2024-12-02
+- fix: symbolsのタイプ情報に半角文字を渡すように調整 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/49
+
 ## [v0.5.0](https://github.com/shsk000/NanoType-JP/compare/v0.4.1...v0.5.0) - 2024-12-01
 - Feature/realtime input by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/46
 - feat: update class file by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/48

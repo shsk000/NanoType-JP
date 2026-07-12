@@ -5,6 +5,13 @@ type InputResult = {
   result: "correct" | "fail" | "complete";
   correctLength: number;
   selectedAlphabetSentence: string;
+  /**
+   * 何個目のTypingPatternResolver（入力単位＝モーラ）まで確定したか。
+   * 拗音の代替入力（例：しゅ＝shu/syuの直接入力 と si+小さいゅ の分割入力）等、
+   * 単位あたりの打鍵数が変わるパターンでも、確定した単位の「個数」は常に正確。
+   * かな表示のハイライト等、外部から「何文字目まで進んだか」を打鍵数から近似する必要をなくす。
+   */
+  resolvedUnitCount: number;
 };
 
 export class RealTimeInputValidator {
@@ -38,6 +45,11 @@ export class RealTimeInputValidator {
     return this.typingPatternResolvers;
   }
 
+  /** 何個目のTypingPatternResolver（入力単位＝モーラ）まで確定したか */
+  public getResolvedUnitCount() {
+    return this.targetTypingPatternResolverNumber;
+  }
+
   public initialize(typingUnits: TypingUnits): string {
     this.typingPatternResolvers =
       this.patternUntisToPatternResolvers(typingUnits);
@@ -62,6 +74,7 @@ export class RealTimeInputValidator {
           result: "correct",
           correctLength: this.correctLength,
           selectedAlphabetSentence: this.createToSelectedAlphabetSentence(),
+          resolvedUnitCount: this.targetTypingPatternResolverNumber,
         };
       case "complete":
         this.correctLength++;
@@ -73,18 +86,21 @@ export class RealTimeInputValidator {
             result: "complete",
             correctLength: this.correctLength,
             selectedAlphabetSentence: this.createToSelectedAlphabetSentence(),
+            resolvedUnitCount: this.targetTypingPatternResolverNumber,
           };
         }
         return {
           result: "correct",
           correctLength: this.correctLength,
           selectedAlphabetSentence: this.createToSelectedAlphabetSentence(),
+          resolvedUnitCount: this.targetTypingPatternResolverNumber,
         };
       case "fail":
         return {
           result: "fail",
           correctLength: this.correctLength,
           selectedAlphabetSentence: this.createToSelectedAlphabetSentence(),
+          resolvedUnitCount: this.targetTypingPatternResolverNumber,
         };
     }
   }

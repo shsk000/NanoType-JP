@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.7.0](https://github.com/shsk000/NanoType-JP/compare/v0.6.0...v0.7.0) - 2026-07-12
+
+- feat: answerAlphabet に resolvedUnitCount を追加 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/51
+- fix: CI廃止済みactionsのバージョン更新・lockファイル復元 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/52
+
 ## [v0.6.0](https://github.com/shsk000/NanoType-JP/compare/v0.5.0...v0.6.0) - 2024-12-02
 - fix: symbolsのタイプ情報に半角文字を渡すように調整 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/49
 

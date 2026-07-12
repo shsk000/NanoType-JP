@@ -20,6 +20,12 @@ type AnswerResult = {
   completedCount: number;
   /** １タイプごと：入力失敗数 */
   perfectStreakCount: number;
+  /**
+   * 何個目の入力単位（モーラ）まで確定したか。totalUnitCount と合わせて使うと、
+   * 拗音の代替入力等で単位あたりの打鍵数が変わっても、外部でローマ字の打鍵数から
+   * 「かな側の今の位置」を近似する必要がなくなる。
+   */
+  resolvedUnitCount: number;
 
   inputAlphabet: InputAlphabetResult;
 };
@@ -27,6 +33,8 @@ type AnswerResult = {
 type RegisterResult = {
   inputAlphabet: InputAlphabetResult;
   inputPattern: TypingPatternResolver[];
+  /** 入力単位（モーラ）の総数。resolvedUnitCount の分母として使う */
+  totalUnitCount: number;
 };
 
 export class NanoTypeJp {
@@ -61,13 +69,15 @@ export class NanoTypeJp {
       );
     }
     const alphabetSentece = this.inputValidator.initialize(parsedHiragana);
+    const inputPattern = this.inputValidator.getTypingPatternResolver();
 
     return {
       inputAlphabet: {
         remainedAlphabet: alphabetSentece,
         completedInputAlphabet: "",
       },
-      inputPattern: this.inputValidator.getTypingPatternResolver(),
+      inputPattern,
+      totalUnitCount: inputPattern.length,
     };
   }
 
@@ -82,6 +92,7 @@ export class NanoTypeJp {
         correctCount: this.correctCount,
         completedCount: this.completedCount,
         perfectStreakCount: this.perfectStreakCount,
+        resolvedUnitCount: response.resolvedUnitCount,
         inputAlphabet: {
           completedInputAlphabet: response.selectedAlphabetSentence.slice(
             0,
@@ -105,6 +116,7 @@ export class NanoTypeJp {
         correctCount: this.correctCount,
         completedCount: this.completedCount,
         perfectStreakCount: this.perfectStreakCount,
+        resolvedUnitCount: response.resolvedUnitCount,
         inputAlphabet: {
           completedInputAlphabet: response.selectedAlphabetSentence.slice(
             0,
@@ -125,6 +137,7 @@ export class NanoTypeJp {
       correctCount: this.correctCount,
       completedCount: this.completedCount,
       perfectStreakCount: this.perfectStreakCount,
+      resolvedUnitCount: response.resolvedUnitCount,
       inputAlphabet: {
         completedInputAlphabet: response.selectedAlphabetSentence.slice(
           0,

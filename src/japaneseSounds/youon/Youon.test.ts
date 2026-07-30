@@ -105,6 +105,49 @@ describe("Youon.test.ts", () => {
     expect((youon as Youon).getHiragana()).toBe(hiragana);
   });
 
+  test.each([
+    ["ふぁ"],
+    ["ふぉ"],
+    ["いぇ"],
+    ["うぁ"],
+    ["うぃ"],
+    ["うぇ"],
+    ["うぉ"],
+    ["くぁ"],
+    ["くぃ"],
+    ["くぇ"],
+    ["くぉ"],
+    ["ぐぁ"],
+    ["ぐぃ"],
+    ["ぐぇ"],
+    ["ぐぉ"],
+    ["すぁ"],
+    ["すぃ"],
+    ["すぇ"],
+    ["すぉ"],
+    ["ずぁ"],
+    ["ずぃ"],
+    ["ずぇ"],
+    ["ずぉ"],
+    ["つぁ"],
+    ["つぃ"],
+    ["つぇ"],
+    ["つぉ"],
+    ["とぅ"],
+    ["どぅ"],
+  ])("fromHiragana: %s. 外来音、正常系", (hiragana) => {
+    const youon = Youon.fromHiragana(hiragana);
+    expect(youon).instanceOf(Youon);
+    expect((youon as Youon).getHiragana()).toBe(hiragana);
+  });
+
+  test.each([["いぁ"], ["うゃ"], ["つゃ"], ["とぁ"], ["しぁ"], ["きぉ"]])(
+    "fromHiragana: %s. 拗音として成立しない組み合わせ、異常系",
+    (hiragana) => {
+      expect(() => Youon.fromHiragana(hiragana)).toThrowError();
+    }
+  );
+
   test.each([["ゃ"], ["ゅ"], ["ょ"], ["ぁ"], ["ぃ"], ["ぅ"], ["ぇ"], ["ぉ"]])(
     "isSutegana: %s. 捨て仮名判定、正常系",
     (hiragana) => {

@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.0](https://github.com/shsk000/NanoType-JP/compare/v0.7.0...v0.8.0) - 2026-07-31
+
+- fix: 外来音（ふぇ=fe など）のローマ字入力パターンを整備 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/54
+
 ## [v0.7.0](https://github.com/shsk000/NanoType-JP/compare/v0.6.0...v0.7.0) - 2026-07-12
 
 - feat: answerAlphabet に resolvedUnitCount を追加 by @shsk000 in https://github.com/shsk000/NanoType-JP/pull/51

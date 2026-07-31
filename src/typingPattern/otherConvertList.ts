@@ -1,4 +1,7 @@
-import { TypingPattern, TypingPatternUnit, RomajiConvertList } from ".";
+// NOTE: youonConvertList がこのリストを参照するため、index経由ではなく直接importする
+//       （index経由だとモジュールの評価順で undefined になる）
+import { TypingPattern, TypingPatternUnit } from "./typingPattern";
+import { RomajiConvertList } from "./type";
 
 export const otherConvertList: RomajiConvertList = {
   あ: new TypingPattern(new TypingPatternUnit("a")),
@@ -118,7 +121,7 @@ export const otherConvertList: RomajiConvertList = {
     new TypingPatternUnit("xyo"),
   ]),
   ゎ: new TypingPattern(new TypingPatternUnit("lwa"), [
-    new TypingPatternUnit("xwu"),
+    new TypingPatternUnit("xwa"),
   ]),
   っ: new TypingPattern(new TypingPatternUnit("ltu"), [
     new TypingPatternUnit("xtu"),
@@ -129,5 +132,7 @@ export const otherConvertList: RomajiConvertList = {
   ゑ: new TypingPattern(new TypingPatternUnit("e"), [
     new TypingPatternUnit("wye"),
   ]),
+  ゔ: new TypingPattern(new TypingPatternUnit("vu")),
+  // NOTE: Other はひらがなのみ扱うため到達しないが、後方互換のため残している
   ヴ: new TypingPattern(new TypingPatternUnit("vu")),
 };

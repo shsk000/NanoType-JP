@@ -1,4 +1,28 @@
-import { TypingPattern, TypingPatternUnit, RomajiConvertList } from ".";
+// NOTE: otherConvertList を参照するため、index経由ではなく直接importする
+//       （index経由だとモジュールの評価順で undefined になる）
+import { TypingPattern, TypingPatternUnit } from "./typingPattern";
+import { otherConvertList } from "./otherConvertList";
+import { RomajiConvertList } from "./type";
+
+/**
+ * 「大きい文字」と「小さい文字」を一文字ずつ入力するパターンを生成する
+ * 例: ふ(fu, hu) + ぇ(le, xe) => fule, fuxe, hule, huxe
+ */
+const splitInputUnits = (large: string, small: string): TypingPatternUnit[] => {
+  const largePattern = otherConvertList[large];
+  const smallPattern = otherConvertList[small];
+
+  if (!largePattern || !smallPattern) {
+    throw new Error(
+      `youonConvertList: 変換情報が見つかりません. large: ${large}, small: ${small}`
+    );
+  }
+
+  return TypingPattern.concatFieldCombinations(
+    largePattern,
+    smallPattern
+  ).getFlatTypingPatternUnits();
+};
 
 export const youonConvertList: RomajiConvertList = {
   きゃ: new TypingPattern(new TypingPatternUnit("kya"), [
@@ -29,8 +53,8 @@ export const youonConvertList: RomajiConvertList = {
     new TypingPatternUnit("shilya"),
     new TypingPatternUnit("shixya"),
   ]),
+  // NOTE:「shi」は「し」のため、「しぃ」の入力パターンには含めない
   しぃ: new TypingPattern(new TypingPatternUnit("syi"), [
-    new TypingPatternUnit("shi"),
     new TypingPatternUnit("sili"),
     new TypingPatternUnit("sixi"),
     new TypingPatternUnit("shili"),
@@ -63,8 +87,8 @@ export const youonConvertList: RomajiConvertList = {
     new TypingPatternUnit("chilya"),
     new TypingPatternUnit("chixya"),
   ]),
+  // NOTE:「chi」は「ち」のため、「ちぃ」の入力パターンには含めない
   ちぃ: new TypingPattern(new TypingPatternUnit("tyi"), [
-    new TypingPatternUnit("chi"),
     new TypingPatternUnit("chili"),
     new TypingPatternUnit("chixi"),
   ]),
@@ -189,25 +213,37 @@ export const youonConvertList: RomajiConvertList = {
     new TypingPatternUnit("rixyo"),
   ]),
 
-  ふゃ: new TypingPattern(new TypingPatternUnit("fya"), [
-    new TypingPatternUnit("filya"),
-    new TypingPatternUnit("fixya"),
+  // NOTE:「ふ」は母音がuのため、分割入力は fu/hu 起点になる（fi起点では「ふぃ」+小文字になってしまう）
+  ふぁ: new TypingPattern(new TypingPatternUnit("fa"), [
+    new TypingPatternUnit("fwa"),
+    new TypingPatternUnit("hwa"),
+    ...splitInputUnits("ふ", "ぁ"),
   ]),
-  ふぃ: new TypingPattern(new TypingPatternUnit("fyi"), [
-    new TypingPatternUnit("fili"),
-    new TypingPatternUnit("fixi"),
+  ふぃ: new TypingPattern(new TypingPatternUnit("fi"), [
+    new TypingPatternUnit("fyi"),
+    new TypingPatternUnit("fwi"),
+    new TypingPatternUnit("hwi"),
+    ...splitInputUnits("ふ", "ぃ"),
+  ]),
+  ふぇ: new TypingPattern(new TypingPatternUnit("fe"), [
+    new TypingPatternUnit("fye"),
+    new TypingPatternUnit("fwe"),
+    new TypingPatternUnit("hwe"),
+    ...splitInputUnits("ふ", "ぇ"),
+  ]),
+  ふぉ: new TypingPattern(new TypingPatternUnit("fo"), [
+    new TypingPatternUnit("fwo"),
+    new TypingPatternUnit("hwo"),
+    ...splitInputUnits("ふ", "ぉ"),
+  ]),
+  ふゃ: new TypingPattern(new TypingPatternUnit("fya"), [
+    ...splitInputUnits("ふ", "ゃ"),
   ]),
   ふゅ: new TypingPattern(new TypingPatternUnit("fyu"), [
-    new TypingPatternUnit("filyu"),
-    new TypingPatternUnit("fixyu"),
-  ]),
-  ふぇ: new TypingPattern(new TypingPatternUnit("fye"), [
-    new TypingPatternUnit("file"),
-    new TypingPatternUnit("fixe"),
+    ...splitInputUnits("ふ", "ゅ"),
   ]),
   ふょ: new TypingPattern(new TypingPatternUnit("fyo"), [
-    new TypingPatternUnit("filyo"),
-    new TypingPatternUnit("fixyo"),
+    ...splitInputUnits("ふ", "ょ"),
   ]),
 
   ぎゃ: new TypingPattern(new TypingPatternUnit("gya"), [
@@ -238,10 +274,10 @@ export const youonConvertList: RomajiConvertList = {
     new TypingPatternUnit("jilya"),
     new TypingPatternUnit("jixya"),
   ]),
+  // NOTE:「ji」は「じ」のため、「じぃ」の入力パターンには含めない
   じぃ: new TypingPattern(new TypingPatternUnit("zyi"), [
     new TypingPatternUnit("zili"),
     new TypingPatternUnit("zixi"),
-    new TypingPatternUnit("ji"),
     new TypingPatternUnit("jili"),
     new TypingPatternUnit("jixi"),
   ]),
@@ -349,5 +385,133 @@ export const youonConvertList: RomajiConvertList = {
   ぴょ: new TypingPattern(new TypingPatternUnit("pyo"), [
     new TypingPatternUnit("pilyo"),
     new TypingPatternUnit("pixyo"),
+  ]),
+
+  // 以下、外来音（「ふ」行は上記の位置に定義している）
+
+  いぇ: new TypingPattern(new TypingPatternUnit("ye"), [
+    ...splitInputUnits("い", "ぇ"),
+  ]),
+
+  うぁ: new TypingPattern(new TypingPatternUnit("wha"), [
+    ...splitInputUnits("う", "ぁ"),
+  ]),
+  // NOTE:「wo」は「を」のため、「うぉ」の入力パターンには含めない
+  うぃ: new TypingPattern(new TypingPatternUnit("wi"), [
+    new TypingPatternUnit("whi"),
+    ...splitInputUnits("う", "ぃ"),
+  ]),
+  うぇ: new TypingPattern(new TypingPatternUnit("we"), [
+    new TypingPatternUnit("whe"),
+    ...splitInputUnits("う", "ぇ"),
+  ]),
+  うぉ: new TypingPattern(new TypingPatternUnit("who"), [
+    ...splitInputUnits("う", "ぉ"),
+  ]),
+
+  ゔぁ: new TypingPattern(new TypingPatternUnit("va"), [
+    ...splitInputUnits("ゔ", "ぁ"),
+  ]),
+  ゔぃ: new TypingPattern(new TypingPatternUnit("vi"), [
+    new TypingPatternUnit("vyi"),
+    ...splitInputUnits("ゔ", "ぃ"),
+  ]),
+  ゔぇ: new TypingPattern(new TypingPatternUnit("ve"), [
+    new TypingPatternUnit("vye"),
+    ...splitInputUnits("ゔ", "ぇ"),
+  ]),
+  ゔぉ: new TypingPattern(new TypingPatternUnit("vo"), [
+    ...splitInputUnits("ゔ", "ぉ"),
+  ]),
+  ゔゃ: new TypingPattern(new TypingPatternUnit("vya"), [
+    ...splitInputUnits("ゔ", "ゃ"),
+  ]),
+  ゔゅ: new TypingPattern(new TypingPatternUnit("vyu"), [
+    ...splitInputUnits("ゔ", "ゅ"),
+  ]),
+  ゔょ: new TypingPattern(new TypingPatternUnit("vyo"), [
+    ...splitInputUnits("ゔ", "ょ"),
+  ]),
+
+  くぁ: new TypingPattern(new TypingPatternUnit("qa"), [
+    new TypingPatternUnit("kwa"),
+    new TypingPatternUnit("qwa"),
+    ...splitInputUnits("く", "ぁ"),
+  ]),
+  くぃ: new TypingPattern(new TypingPatternUnit("qi"), [
+    new TypingPatternUnit("kwi"),
+    new TypingPatternUnit("qwi"),
+    new TypingPatternUnit("qyi"),
+    ...splitInputUnits("く", "ぃ"),
+  ]),
+  くぇ: new TypingPattern(new TypingPatternUnit("qe"), [
+    new TypingPatternUnit("kwe"),
+    new TypingPatternUnit("qwe"),
+    new TypingPatternUnit("qye"),
+    ...splitInputUnits("く", "ぇ"),
+  ]),
+  くぉ: new TypingPattern(new TypingPatternUnit("qo"), [
+    new TypingPatternUnit("kwo"),
+    new TypingPatternUnit("qwo"),
+    ...splitInputUnits("く", "ぉ"),
+  ]),
+
+  ぐぁ: new TypingPattern(new TypingPatternUnit("gwa"), [
+    ...splitInputUnits("ぐ", "ぁ"),
+  ]),
+  ぐぃ: new TypingPattern(new TypingPatternUnit("gwi"), [
+    ...splitInputUnits("ぐ", "ぃ"),
+  ]),
+  ぐぇ: new TypingPattern(new TypingPatternUnit("gwe"), [
+    ...splitInputUnits("ぐ", "ぇ"),
+  ]),
+  ぐぉ: new TypingPattern(new TypingPatternUnit("gwo"), [
+    ...splitInputUnits("ぐ", "ぉ"),
+  ]),
+
+  すぁ: new TypingPattern(new TypingPatternUnit("swa"), [
+    ...splitInputUnits("す", "ぁ"),
+  ]),
+  すぃ: new TypingPattern(new TypingPatternUnit("swi"), [
+    ...splitInputUnits("す", "ぃ"),
+  ]),
+  すぇ: new TypingPattern(new TypingPatternUnit("swe"), [
+    ...splitInputUnits("す", "ぇ"),
+  ]),
+  すぉ: new TypingPattern(new TypingPatternUnit("swo"), [
+    ...splitInputUnits("す", "ぉ"),
+  ]),
+
+  ずぁ: new TypingPattern(new TypingPatternUnit("zwa"), [
+    ...splitInputUnits("ず", "ぁ"),
+  ]),
+  ずぃ: new TypingPattern(new TypingPatternUnit("zwi"), [
+    ...splitInputUnits("ず", "ぃ"),
+  ]),
+  ずぇ: new TypingPattern(new TypingPatternUnit("zwe"), [
+    ...splitInputUnits("ず", "ぇ"),
+  ]),
+  ずぉ: new TypingPattern(new TypingPatternUnit("zwo"), [
+    ...splitInputUnits("ず", "ぉ"),
+  ]),
+
+  つぁ: new TypingPattern(new TypingPatternUnit("tsa"), [
+    ...splitInputUnits("つ", "ぁ"),
+  ]),
+  つぃ: new TypingPattern(new TypingPatternUnit("tsi"), [
+    ...splitInputUnits("つ", "ぃ"),
+  ]),
+  つぇ: new TypingPattern(new TypingPatternUnit("tse"), [
+    ...splitInputUnits("つ", "ぇ"),
+  ]),
+  つぉ: new TypingPattern(new TypingPatternUnit("tso"), [
+    ...splitInputUnits("つ", "ぉ"),
+  ]),
+
+  とぅ: new TypingPattern(new TypingPatternUnit("twu"), [
+    ...splitInputUnits("と", "ぅ"),
+  ]),
+  どぅ: new TypingPattern(new TypingPatternUnit("dwu"), [
+    ...splitInputUnits("ど", "ぅ"),
   ]),
 };

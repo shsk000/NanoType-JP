@@ -201,4 +201,179 @@ describe("typingGame.test.ts", () => {
       expect(r.resolvedUnitCount).toBe(1); // 「あ」を打った瞬間に完了（オーナー実プレイで見つかった回帰）
     });
   });
+
+  describe("外来音", () => {
+    /** 入力した全ての打鍵のresultを返却する */
+    const inputAll = (hiragana: string, alphabet: string) => {
+      const game = new NanoTypeJp();
+      game.registerNewHiragana(hiragana);
+      return [...alphabet].map((char) => game.answerAlphabet(char).result);
+    };
+
+    /** 最後の打鍵でcompleteになる（＝途中でfailしない）ことを期待する */
+    const expectCompleted = (hiragana: string, alphabet: string) => {
+      expect(inputAll(hiragana, alphabet)).toStrictEqual([
+        ...Array<string>(alphabet.length - 1).fill("correct"),
+        "complete",
+      ]);
+    };
+
+    test.each([
+      ["ふぁ", "fa"],
+      ["ふぃ", "fi"],
+      ["ふぇ", "fe"],
+      ["ふぉ", "fo"],
+      ["ふゃ", "fya"],
+      ["ふゅ", "fyu"],
+      ["ふょ", "fyo"],
+      ["いぇ", "ye"],
+      ["うぁ", "wha"],
+      ["うぃ", "wi"],
+      ["うぇ", "we"],
+      ["うぉ", "who"],
+      ["ゔぁ", "va"],
+      ["ゔぃ", "vi"],
+      ["ゔぇ", "ve"],
+      ["ゔぉ", "vo"],
+      ["ゔゃ", "vya"],
+      ["ゔゅ", "vyu"],
+      ["ゔょ", "vyo"],
+      ["つぁ", "tsa"],
+      ["つぃ", "tsi"],
+      ["つぇ", "tse"],
+      ["つぉ", "tso"],
+      ["くぁ", "qa"],
+      ["くぃ", "qi"],
+      ["くぇ", "qe"],
+      ["くぉ", "qo"],
+      ["ぐぁ", "gwa"],
+      ["ぐぃ", "gwi"],
+      ["ぐぇ", "gwe"],
+      ["ぐぉ", "gwo"],
+      ["すぁ", "swa"],
+      ["すぃ", "swi"],
+      ["すぇ", "swe"],
+      ["すぉ", "swo"],
+      ["ずぁ", "zwa"],
+      ["ずぃ", "zwi"],
+      ["ずぇ", "zwe"],
+      ["ずぉ", "zwo"],
+      ["とぅ", "twu"],
+      ["どぅ", "dwu"],
+      ["ゔ", "vu"],
+    ])("%s は %s で入力できる", (hiragana, alphabet) => {
+      expectCompleted(hiragana, alphabet);
+    });
+
+    test.each([
+      // 「ふ」はfu/hu起点で分割入力する（fi起点では「ふぃ」＋小文字になってしまう）
+      ["ふぇ", "fye"],
+      ["ふぇ", "fwe"],
+      ["ふぇ", "hwe"],
+      ["ふぇ", "fule"],
+      ["ふぇ", "fuxe"],
+      ["ふぇ", "hule"],
+      ["ふぇ", "huxe"],
+      ["ふぁ", "fwa"],
+      ["ふぁ", "hwa"],
+      ["ふぁ", "fula"],
+      ["ふゃ", "fulya"],
+      ["ふゃ", "huxya"],
+      ["うぇ", "whe"],
+      ["うぇ", "ule"],
+      ["うぇ", "wuxe"],
+      ["ゔぁ", "vula"],
+      ["ゔぃ", "vyi"],
+      ["つぁ", "tula"],
+      ["つぁ", "tsuxa"],
+      ["くぁ", "kwa"],
+      ["くぁ", "qwa"],
+      ["くぁ", "kula"],
+      ["くぃ", "qyi"],
+      ["ぐぁ", "guxa"],
+      ["すぃ", "suli"],
+      ["とぅ", "toxu"],
+    ])("%s は代替入力の %s でも入力できる", (hiragana, alphabet) => {
+      expectCompleted(hiragana, alphabet);
+    });
+
+    test.each([
+      ["っふぇ", "ffe"],
+      ["っつぁ", "ttsa"],
+      ["っゔぁ", "vva"],
+      ["っふぇ", "ltufe"],
+      ["っつぁ", "xtutsa"],
+    ])("促音つきの %s は %s で入力できる", (hiragana, alphabet) => {
+      expectCompleted(hiragana, alphabet);
+    });
+
+    test.each([
+      ["ふぇありー", "feari-"],
+      ["ふぁいる", "fairu"],
+      ["ゔぁいおりん", "vaiorinn"],
+      ["うぇぶさいと", "webusaito"],
+      ["つぇっぺりん", "tsepperinn"],
+      ["くぉーつ", "qo-tu"],
+      ["とぅーす", "twu-su"],
+    ])("文章 %s を %s で入力できる", (hiragana, alphabet) => {
+      expectCompleted(hiragana, alphabet);
+    });
+
+    // 外来音は「ふぁ」等で一つの入力単位（モーラ）として扱われる
+    test.each([
+      ["ふぇ", 1],
+      ["ふぁいる", 3],
+      ["うぇぶ", 2],
+      ["っつぁ", 1],
+    ])("%s の入力単位数は %i である", (hiragana, totalUnitCount) => {
+      const game = new NanoTypeJp();
+      expect(game.registerNewHiragana(hiragana).totalUnitCount).toBe(
+        totalUnitCount
+      );
+    });
+
+    test("お手本のローマ字は一般的な入力パターンを返却する", () => {
+      const game = new NanoTypeJp();
+      const registered = game.registerNewHiragana("ふぇありー");
+      expect(registered.inputAlphabet.remainedAlphabet).toBe("feari-");
+    });
+  });
+
+  describe("「ぃ」の拗音（い段の親文字と混同していた回帰）", () => {
+    test.each([
+      ["しぃ", "syi"],
+      ["しぃ", "sili"],
+      ["しぃ", "shili"],
+      ["ちぃ", "tyi"],
+      ["ちぃ", "chili"],
+      ["じぃ", "zyi"],
+      ["じぃ", "jili"],
+    ])("%s は %s で入力できる", (hiragana, alphabet) => {
+      const game = new NanoTypeJp();
+      game.registerNewHiragana(hiragana);
+      const results = [...alphabet].map(
+        (char) => game.answerAlphabet(char).result
+      );
+      expect(results).toStrictEqual([
+        ...Array<string>(alphabet.length - 1).fill("correct"),
+        "complete",
+      ]);
+    });
+
+    test.each([
+      ["し", "shi"],
+      ["ち", "chi"],
+      ["じ", "ji"],
+    ])("%s は %s で入力できる（い段の親文字）", (hiragana, alphabet) => {
+      const game = new NanoTypeJp();
+      game.registerNewHiragana(hiragana);
+      const results = [...alphabet].map(
+        (char) => game.answerAlphabet(char).result
+      );
+      expect(results).toStrictEqual([
+        ...Array<string>(alphabet.length - 1).fill("correct"),
+        "complete",
+      ]);
+    });
+  });
 });

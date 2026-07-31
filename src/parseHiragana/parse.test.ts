@@ -22,8 +22,8 @@ describe("parse.test.ts", () => {
       new Romaji(new Other("あ")),
       new Romaji(new Other("る")),
       new Romaji(new Other("て")),
-      new Romaji([new Sokuon(), new Other("つ")]),
-      new Romaji(new Other("ぁ")),
+      // 「つぁ」は外来音のため、促音と合わせて一つのRomajiとなる
+      new Romaji([new Sokuon(), new Youon("つぁ")]),
     ]);
   });
 
